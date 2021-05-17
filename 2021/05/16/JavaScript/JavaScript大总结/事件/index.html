@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/Ashun.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/Ashun.ico">
+  <link rel="mask-icon" href="/images/favicons/Ashun.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#34495e","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="事件在文档、浏览器、标签元素等元素在特定状态下触发的行为即为事件，比如用户的单击行为、表单内容的改变行为即为事件，我们可以为不同的事件定义处理程序。JS使用异步事件驱动的形式管理事件。 事件类型 JS为不同的事件定义的类型，也可以称为事件名称。 事件目标 事件目标指触发事件的对象，比如a标签被点击那么a标签就是事件目标。元素是可以嵌套的，所以在进行一次点击行为时可能会触发多个事件目标(事件冒泡)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件">
+<meta property="og:url" content="http://example.com/2021/05/16/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E4%BA%8B%E4%BB%B6/index.html">
+<meta property="og:site_name" content="AshunBlog">
+<meta property="og:description" content="事件在文档、浏览器、标签元素等元素在特定状态下触发的行为即为事件，比如用户的单击行为、表单内容的改变行为即为事件，我们可以为不同的事件定义处理程序。JS使用异步事件驱动的形式管理事件。 事件类型 JS为不同的事件定义的类型，也可以称为事件名称。 事件目标 事件目标指触发事件的对象，比如a标签被点击那么a标签就是事件目标。元素是可以嵌套的，所以在进行一次点击行为时可能会触发多个事件目标(事件冒泡)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-16T05:43:21.000Z">
+<meta property="article:modified_time" content="2021-05-17T01:19:03.122Z">
+<meta property="article:author" content="阿顺特烦恼">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/16/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E4%BA%8B%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>事件 | AshunBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AshunBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">好好学习,天天Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/astfn" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/16/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/headPortrait.jpg">
+      <meta itemprop="name" content="阿顺特烦恼">
+      <meta itemprop="description" content="阿顺特烦恼,希望大家没有烦恼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AshunBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          事件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-16 13:43:21" itemprop="dateCreated datePublished" datetime="2021-05-16T13:43:21+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-17 09:19:03" itemprop="dateModified" datetime="2021-05-17T09:19:03+08:00">2021-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">Web前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">JavaScript大总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>在文档、浏览器、标签元素等元素在特定状态下触发的行为即为事件，比如用户的单击行为、表单内容的改变行为即为事件，我们可以为不同的事件定义处理程序。JS使用异步事件驱动的形式管理事件。</p>
+<p><strong>事件类型</strong></p>
+<p>JS为不同的事件定义的类型，也可以称为事件名称。</p>
+<p><strong>事件目标</strong></p>
+<p>事件目标指触发事件的对象，比如a标签被点击那么a标签就是事件目标。元素是可以嵌套的，所以在进行一次点击行为时可能会触发多个事件目标(事件冒泡)。</p>
+<h3 id="处理程序"><a href="#处理程序" class="headerlink" title="处理程序"></a>处理程序</h3><p>事件的目的是要执行一段代码，我们称这类代码块为事件处理（监听）程序。当在对象上触发事件时就会执行定义的事件处理程序。</p>
+<h4 id="HTML绑定"><a href="#HTML绑定" class="headerlink" title="HTML绑定"></a>HTML绑定</h4><p>可以在html元素上设置事件处理程序，浏览器解析后会绑定到DOM属性中</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=&quot;alert(`Ashuntefannao`)&quot;&gt;阿顺特烦恼&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>往往事件处理程序业务比较复杂，所以绑定方法或函数会很常见</p>
+<ul>
+<li>绑定函数或方法时需要加上括号</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=&quot;show()&quot;&gt;阿顺特烦恼&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  function show() &#123;</span><br><span class="line">    alert(&#x27;Ashuntefannao&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以使用对象方法做为事件处理程序</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; onkeyup=&quot;SHUN.show()&quot; /&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  class SHUN &#123;</span><br><span class="line">    static show() &#123;</span><br><span class="line">      console.log(&#x27;Ashun&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以传递事件源对象与事件对象</p>
+<ul>
+<li>传入<code>this</code>指向事件源span元素</li>
+<li>传入<code>event</code>指向事件对象，可通过其访问各种事件处理的属性/方法。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- this指向span元素，event为事件对象，--&gt;</span><br><span class="line">&lt;span onclick=&quot;show(this,&#x27;Ashun&#x27;,&#x27;阿顺特烦恼&#x27;,event)&quot;&gt;ASHUN&lt;/span&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function show(...args) &#123;</span><br><span class="line">        console.log(args)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="DOM绑定"><a href="#DOM绑定" class="headerlink" title="DOM绑定"></a>DOM绑定</h4><p>也可以将事件处理程序绑定到DOM属性中</p>
+<ul>
+<li>使用setAttribute方法设置事件处理程序无效</li>
+<li>属性名区分大小写</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  app.onclick = function () &#123;</span><br><span class="line">    this.style.color = &#x27;red&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>无法为事件类型绑定多个事件处理程序，下面绑定了多个事件处理程序，因为属性是相同的所以只有最后一个有效</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  app.onclick = function () &#123;</span><br><span class="line">    this.style.color = &#x27;red&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">  app.onclick = function () &#123;</span><br><span class="line">    this.style.fontSize = &#x27;55px&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><p>通过上面的说明我们知道使用HTML与DOM绑定事件都有缺陷，建议使用新的事件监听绑定方式addEventListener 操作事件</p>
+<p>使用addEventListener添加事件处理程序有以下几个特点</p>
+<ul>
+<li>transtionend / DOMContentLoaded 等事件类型只能使用 addEventListener 处理</li>
+<li>同一事件类型可以设置多个事件处理程序，按设置的顺序先后执行</li>
+<li>也可以对未来添加的元素绑定事件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>addEventListener</td>
+<td>添加事件处理程序</td>
+</tr>
+<tr>
+<td>removeEventListener</td>
+<td>移除事件处理程序</td>
+</tr>
+</tbody></table>
+<p>addEventListener的参数说明如下</p>
+<ol>
+<li>参数一事件类型</li>
+<li>参数二事件处理程序callback<ul>
+<li>callback默认接收<code>event事件对象</code>参数</li>
+</ul>
+</li>
+<li>参数三为定制的选项，可传递object或boolean类型。后面会详细介绍使用区别</li>
+</ol>
+<h4 id="绑定多个事件"><a href="#绑定多个事件" class="headerlink" title="绑定多个事件"></a>绑定多个事件</h4><p>使用addEventListener来多个事件处理程序</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  app.addEventListener(&#x27;click&#x27;, function () &#123;</span><br><span class="line">    this.style.color = &#x27;red&#x27;</span><br><span class="line">  &#125;)</span><br><span class="line">  app.addEventListener(&#x27;click&#x27;, function () &#123;</span><br><span class="line">    this.style.fontSize = &#x27;55px&#x27;</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过对象绑定"><a href="#通过对象绑定" class="headerlink" title="通过对象绑定"></a>通过对象绑定</h4><p><code>事件处理程序可以是对象</code>，对象的 handleEvent 方法会做为事件处理程序执行。下面将元素的事件统一交由对象处理</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  class Events &#123;</span><br><span class="line">    handleEvent(e) &#123;</span><br><span class="line">      this[e.type](e)</span><br><span class="line">    &#125;</span><br><span class="line">    click() &#123;</span><br><span class="line">      console.log(&#x27;单击事件&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">    mouseover() &#123;</span><br><span class="line">      console.log(&#x27;鼠标悬停事件&#x27;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  app.addEventListener(&#x27;click&#x27;, new Events())</span><br><span class="line">  app.addEventListener(&#x27;mouseover&#x27;, new Events())</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="移除事件"><a href="#移除事件" class="headerlink" title="移除事件"></a>移除事件</h4><p>使用removeEventListener删除事先绑定的事件处理函数</p>
+<ul>
+<li>事件处理程序单独定义函数或方法，这可以保证访问的事件处理程序是同一个</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br><span class="line">&lt;button id=&quot;rmEvent&quot;&gt;删除事件&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  const rm = document.querySelector(&#x27;#rmEvent&#x27;)</span><br><span class="line">  function show(event) &#123;</span><br><span class="line">  	console.log(event.target)</span><br><span class="line">    console.log(&#x27;APP我执行了&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">  app.addEventListener(&#x27;click&#x27;, show)</span><br><span class="line">  rm.addEventListener(&#x27;click&#x27;, function () &#123;</span><br><span class="line">    app.removeEventListener(&#x27;click&#x27;, show)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="事件选项"><a href="#事件选项" class="headerlink" title="事件选项"></a>事件选项</h4><p>addEventListener的第三个参数为定制的选项，可传递object或boolean类型</p>
+<p>下面是传递对象时的说明</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>可选参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>once</td>
+<td>true/false</td>
+<td>只执行一次事件</td>
+</tr>
+<tr>
+<td>capture</td>
+<td>true/false</td>
+<td>事件是在捕获/冒泡哪个阶段执行，true:捕获阶段 false:冒泡阶段，默认为false</td>
+</tr>
+<tr>
+<td>passive</td>
+<td>true/false</td>
+<td>声明事件里不会判断 <code>preventDefault()</code>，可以减少系统默认行为的等待</td>
+</tr>
+</tbody></table>
+<p>传递Boolean时</p>
+<ul>
+<li>true：事件捕获方式执行，等同于参数<code>&#123;capture:true&#125;</code></li>
+<li>false：事件冒泡方式执行，等同于参数<code>&#123;capture:false&#125;</code></li>
+</ul>
+<p><strong>事件捕获</strong></p>
+<p>事件执行顺序：最顶层window-&gt;最底层触发事件的dom</p>
+<p><strong>事件冒泡</strong></p>
+<p>事件执行顺序与事件捕获相反</p>
+<p>下面使用once:true 来指定事件只执行一次</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;button id=&quot;app&quot;&gt;Ashuntefannao&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">    app.addEventListener(</span><br><span class="line">        &#x27;click&#x27;,</span><br><span class="line">        function () &#123;</span><br><span class="line">            alert(&#x27;阿顺特烦恼_Ashun&#x27;)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; once: true &#125;</span><br><span class="line">    )</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>设置 <code>&#123; capture: true &#125;</code> 或直接设置第三个参数为true用来在捕获阶段执行事件</p>
+<blockquote>
+<p>addEventListener的第三个参数传递true/false 和设置 {capture:true/false}是一样</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot; style=&quot;background-color: red&quot;&gt;</span><br><span class="line">    &lt;button id=&quot;bt&quot;&gt;Ashuntefannao&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">    const bt = document.querySelector(&#x27;#bt&#x27;)</span><br><span class="line">    app.addEventListener(</span><br><span class="line">        &#x27;click&#x27;,</span><br><span class="line">        function () &#123;</span><br><span class="line">            alert(&#x27;这是div事件 &#x27;)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; capture: true &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    bt.addEventListener(</span><br><span class="line">        &#x27;click&#x27;,</span><br><span class="line">        function () &#123;</span><br><span class="line">            alert(&#x27;这是按钮事件 &#x27;)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; capture: true &#125;</span><br><span class="line">    )</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>设置 <code>&#123; capture: false &#125;</code> 或 直接设置第三个参数为false 或 不设置第三个参数(默认为false), 用来在冒泡阶段执行事件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot; style=&quot;background-color: red&quot;&gt;</span><br><span class="line">    &lt;button id=&quot;bt&quot;&gt;Ashuntefannao&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">    const bt = document.querySelector(&#x27;#bt&#x27;)</span><br><span class="line">    app.addEventListener(</span><br><span class="line">        &#x27;click&#x27;,</span><br><span class="line">        function () &#123;</span><br><span class="line">            alert(&#x27;这是div事件 &#x27;)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; capture: false &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    bt.addEventListener(</span><br><span class="line">        &#x27;click&#x27;,</span><br><span class="line">        function () &#123;</span><br><span class="line">            alert(&#x27;这是按钮事件 &#x27;)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; capture: false &#125;</span><br><span class="line">    )</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>passive</code>选项:   声明事件里不会判断 <code>preventDefault()</code>，可以减少系统默认行为的等待</p>
+<p>很多移动端的页面都会监听 touchstart 等 touch 事件，像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(&quot;touchstart&quot;, function(e)&#123;</span><br><span class="line">    ... &#x2F;&#x2F; 浏览器不知道这里会不会有 e.preventDefault()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>由于 touchstart 事件对象的 cancelable 属性为 true，也就是说它的默认行为可以被监听器通过 preventDefault() 方法阻止，那它的默认行为是什么呢，通常来说就是滚动当前页面（还可能是缩放页面），如果它的默认行为被阻止了，页面就必须静止不动。但浏览器无法预先知道一个监听器会不会调用 preventDefault()，它能做的只有等监听器执行完后再去执行默认行为，而监听器执行是要耗时的，有些甚至耗时很明显，这样就会导致页面卡顿。即便监听器是个空函数，也会产生一定的卡顿，毕竟空函数的执行也会耗时。</p>
+<h3 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h3><p>执行事件处理程序时，会产生包含当前事件相关信息的对象，即为事件对象。<strong>系统会自动做为参数传递给事件处理程序</strong>。</p>
+<ul>
+<li>大部分浏览器将事件对象保存到window.event中</li>
+<li>有些浏览器会将事件对象做为事件处理程序的参数传递</li>
+</ul>
+<p>事件对象常用属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>事件类型</td>
+</tr>
+<tr>
+<td>target</td>
+<td>事件目标对象，冒泡方式时父级对象可以通过该属性找到在哪个子元素上最终执行事件</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td>当前执行事件的对象</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td>事件发生时间</td>
+</tr>
+<tr>
+<td>x</td>
+<td>相对窗口的X坐标</td>
+</tr>
+<tr>
+<td>y</td>
+<td>相对窗口的Y坐标</td>
+</tr>
+<tr>
+<td>clientX</td>
+<td>相对窗口的X坐标</td>
+</tr>
+<tr>
+<td>clientY</td>
+<td>相对窗口的Y坐标</td>
+</tr>
+<tr>
+<td>screenX</td>
+<td>相对计算机屏幕的X坐标</td>
+</tr>
+<tr>
+<td>screenY</td>
+<td>相对计算机屏幕的Y坐标</td>
+</tr>
+<tr>
+<td>pageX</td>
+<td>相对于文档的X坐标</td>
+</tr>
+<tr>
+<td>pageY</td>
+<td>相对于文档的Y坐标</td>
+</tr>
+<tr>
+<td>offsetX</td>
+<td>相对于事件对象的X坐标</td>
+</tr>
+<tr>
+<td>offsetY</td>
+<td>相对于事件对象的Y坐标</td>
+</tr>
+<tr>
+<td>layerX</td>
+<td>相对于父级定位的X坐标</td>
+</tr>
+<tr>
+<td>layerY</td>
+<td>相对于父级定位的Y坐标</td>
+</tr>
+<tr>
+<td>path</td>
+<td>冒泡的路径</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td>是否按了alt键</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td>是否按了shift键</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td>是否按了媒体键</td>
+</tr>
+<tr>
+<td>window.pageXOffset</td>
+<td>文档参考窗口水平滚动的距离</td>
+</tr>
+<tr>
+<td>window.pageYOffset</td>
+<td>文档参考窗口垂直滚动的距离</td>
+</tr>
+</tbody></table>
+<h3 id="冒泡捕获"><a href="#冒泡捕获" class="headerlink" title="冒泡捕获"></a>冒泡捕获</h3><h4 id="冒泡行为"><a href="#冒泡行为" class="headerlink" title="冒泡行为"></a>冒泡行为</h4><p>事件默认是冒泡执行的：标签元素是嵌套的，在一个元素上触发的事件，同时也会向上触发父级元素对应的事件处理程序，一直到最顶层window。</p>
+<ul>
+<li>大部分事件都会冒泡，但像focus事件则不会</li>
+<li>event.target <code>指向事件链中最底层事件的对象</code></li>
+<li>event.currentTarget == this 即当前执行事件的对象</li>
+</ul>
+<p>以下示例有标签的嵌套，并且父子标签都设置了事件，当在子标签上触发事件事会冒泡执行父级标签的事件，直至window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      #app &#123;</span><br><span class="line">        height: 70px;</span><br><span class="line">        background-color: #95a5a6;</span><br><span class="line">      &#125;</span><br><span class="line">      strong &#123;</span><br><span class="line">        display: block;</span><br><span class="line">        height: 30px;</span><br><span class="line">        background-color: #f39c12;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">      Ashuntefannao</span><br><span class="line">      &lt;strong&gt;MyStrong&lt;&#x2F;strong&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line">      const app &#x3D; document.querySelector(&quot;#app&quot;);</span><br><span class="line">      const strong &#x3D; document.querySelector(&quot;strong&quot;);</span><br><span class="line">      </span><br><span class="line">      window.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;window Method&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      document.documentElement.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;html Method&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      app.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;App Method&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      strong.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;strong Method&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下例无论点击哪个元素，都会变为<strong>蓝色</strong></p>
+<ul>
+<li><code>event.target</code>指向事件链中的最底层的事件对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      body &#123;</span><br><span class="line">        width: 100vw;</span><br><span class="line">        height: 100vh;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      article &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        background: #5f27cd;</span><br><span class="line">        border-radius: 10px;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      section &#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 100px;</span><br><span class="line">        background: #ff9f43;</span><br><span class="line">        border-radius: 5px;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;article&gt;</span><br><span class="line">      &lt;section&gt;&lt;&#x2F;section&gt;</span><br><span class="line">    &lt;&#x2F;article&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    document.body.addEventListener(&quot;click&quot;, (evnet) &#x3D;&gt; &#123;</span><br><span class="line">      event.target.style.background &#x3D; &quot;#0abde3&quot;; &#x2F;&#x2F; 祖先级body改蓝色</span><br><span class="line">      console.log(event.target);	&#x2F;&#x2F;由于冒泡执行，点击任意元素，该语句都会执行</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;article&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.target.style.background &#x3D; &quot;#ee5253&quot;; &#x2F;&#x2F; 父级article改红色</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;section&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.target.style.background &#x3D; &quot;#10ac84&quot;; &#x2F;&#x2F; 子级section改绿色</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若通过<code>event.currentTarget</code>处理当前所触发事件的元素，则更改的颜色就会对应起来</p>
+<ul>
+<li>由于事件冒泡，点击某个元素，也会导致其祖先元素的更改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">    document.body.addEventListener(&quot;click&quot;, (evnet) &#x3D;&gt; &#123;</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#0abde3&quot;; &#x2F;&#x2F; 祖先级body改蓝色</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;article&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#ee5253&quot;; &#x2F;&#x2F; 父级article改红色</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;section&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#10ac84&quot;; &#x2F;&#x2F; 子级section改绿色</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h4><p>冒泡过程中的任何事件处理程序中，都可以执行 <code>event.stopPropagation/stopImmediatePropagation()</code> 方法阻止继续进行冒泡传递</p>
+<ul>
+<li>event.stopPropagation() 用于阻止冒泡</li>
+<li>event.stopImmediatePropagation() 阻止<code>事件冒泡</code>并且阻止<code>相同事件类型的其他事件处理函数被调用</code></li>
+</ul>
+<p>使用event.stopPropagation处理冒泡行为中的例子，通过阻止冒泡，点击某个元素，不会影响祖先元素的背景颜色</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">    document.body.addEventListener(&quot;click&quot;, (evnet) &#x3D;&gt; &#123;</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#0abde3&quot;;</span><br><span class="line">      console.log(event.target);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;article&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.stopPropagation();</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#ee5253&quot;;</span><br><span class="line">      console.log(event.currentTarget);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    document.querySelector(&quot;section&quot;).addEventListener(&quot;click&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      event.stopPropagation();</span><br><span class="line">      event.currentTarget.style.background &#x3D; &quot;#10ac84&quot;;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>stopPropagation</code>只是阻止冒泡，不会阻止相同事件类型的其它事件处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">	&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">      Ashuntefannao</span><br><span class="line">      &lt;strong&gt;MyStrong&lt;&#x2F;strong&gt;</span><br><span class="line">	&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"> 			const app &#x3D; document.querySelector(&quot;#app&quot;);</span><br><span class="line">      const strong &#x3D; document.querySelector(&quot;strong&quot;);</span><br><span class="line"></span><br><span class="line">      app.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;App Method&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      strong.addEventListener(&quot;click&quot;, (e) &#x3D;&gt; &#123;</span><br><span class="line">        e.stopPropagation();</span><br><span class="line">        console.log(&quot;strong Method__1&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      strong.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;strong Method__2&quot;);</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>点击strong，打印结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;strong Method__1</span><br><span class="line">&#x2F;&#x2F;strong Method__2</span><br></pre></td></tr></table></figure>
+
+<p>若将上述代码中的<code>stopPropagation</code>改为<code>stopImmediatePropagation</code>，则也会阻止相同事件的其它处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击strong，打印结果: &#x2F;&#x2F;strong Method__1</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><p>事件捕获：事件执行顺序与冒泡行为相反，会由事件链的最顶层window逐步向下传递执行。事件捕获在实际使用中频率不高。</p>
+<ul>
+<li><p>通过设置第三个参数为true或{ capture: true } 在捕获阶段执行事件处理程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      #app &#123;</span><br><span class="line">        height: 70px;</span><br><span class="line">        background-color: #95a5a6;</span><br><span class="line">      &#125;</span><br><span class="line">      strong &#123;</span><br><span class="line">        display: block;</span><br><span class="line">        height: 30px;</span><br><span class="line">        background-color: #f39c12;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">      Ashuntefannao</span><br><span class="line">      &lt;strong&gt;MyStrong&lt;&#x2F;strong&gt;</span><br><span class="line">		&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">     const app &#x3D; document.querySelector(&quot;#app&quot;);</span><br><span class="line">     const strong &#x3D; document.querySelector(&quot;strong&quot;);</span><br><span class="line"></span><br><span class="line">      app.addEventListener(</span><br><span class="line">        &quot;click&quot;,</span><br><span class="line">        () &#x3D;&gt; &#123;</span><br><span class="line">          console.log(&quot;App Method&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        true</span><br><span class="line">      );</span><br><span class="line">      </span><br><span class="line">      strong.addEventListener(&quot;click&quot;, (e) &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;strong Method__1&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">      strong.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&quot;strong Method__2&quot;);</span><br><span class="line">      &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于在给<code>#app</code>添加事件时，第三个参数设置为<code>true/&#123;capture:true&#125;</code>,在事件捕获阶段执行，所以在点击<code>strong</code>时，会先执行<code>#app</code>的事件处理程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 结果</span><br><span class="line">App Method</span><br><span class="line">strong Method__1</span><br><span class="line">strong Method__2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="事件代理"><a href="#事件代理" class="headerlink" title="事件代理"></a>事件代理</h4><p>借助冒泡思路，我们可以不为子元素设置事件，而将事件设置在父级。然后通过父级事件对象的<code>event.target</code>查找事件链底层的元素，并对它做出处理。</p>
+<ul>
+<li>这在为多个元素添加相同事件时很方便</li>
+<li>会使添加事件变得非常容易</li>
+</ul>
+<p>下面是为父级UL设置事件来控制子元素LI的样式切换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      .active &#123;</span><br><span class="line">        border-radius: 10px;</span><br><span class="line">        background-color: #eee;</span><br><span class="line">        text-align: center;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li&gt;阿顺&lt;&#x2F;li&gt;</span><br><span class="line">      &lt;li&gt;Ashuntefannao&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">   document.querySelector(&quot;ul&quot;).addEventListener(&quot;click&quot;, (e) &#x3D;&gt; &#123;</span><br><span class="line">      e.target.classList.toggle(&quot;active&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用事件代理来共享事件处理程序，不用为每个元素单独绑定事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  &lt;ul&gt;</span><br><span class="line">      &lt;li data-action&#x3D;&quot;border&quot; data-border&#x3D;&quot;2px solid #aaa&quot;&gt;阿顺&lt;&#x2F;li&gt;</span><br><span class="line">      &lt;li data-action&#x3D;&quot;color&quot; data-color&#x3D;&quot;red&quot;&gt;Ashuntefannao&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    class Event &#123;</span><br><span class="line">      constructor(el) &#123;</span><br><span class="line">        el.addEventListener(&quot;click&quot;, (e) &#x3D;&gt; &#123;</span><br><span class="line">          let action &#x3D; e.target.dataset.action;</span><br><span class="line">          this[action](e.target);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      border(event) &#123;</span><br><span class="line">        event.style.border &#x3D; event.dataset.border;</span><br><span class="line">      &#125;</span><br><span class="line">      color(event) &#123;</span><br><span class="line">        console.log(event.dataset);</span><br><span class="line">        event.style.color &#x3D; event.dataset.color;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    new Event(document.querySelector(&quot;ul&quot;));</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下面是使用事件代理实现的TAB面板效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">			.tab &#123;</span><br><span class="line">        width: 200px;</span><br><span class="line">      &#125;</span><br><span class="line">      dl &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        flex-direction: column;</span><br><span class="line">        align-items: center;</span><br><span class="line">        justify-content: center;</span><br><span class="line">      &#125;</span><br><span class="line">      dt,</span><br><span class="line">      dd &#123;</span><br><span class="line">        width: 100%;</span><br><span class="line">        color: white;</span><br><span class="line">      &#125;</span><br><span class="line">      dt &#123;</span><br><span class="line">        height: 30px;</span><br><span class="line">        background-color: #34495e;</span><br><span class="line">      &#125;</span><br><span class="line">      dd &#123;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">        height: 60px;</span><br><span class="line">        background-color: #e67e22;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">   &lt;div class&#x3D;&quot;tab&quot;&gt;</span><br><span class="line">      &lt;dl&gt;</span><br><span class="line">        &lt;dt data-action&#x3D;&quot;toggle&quot;&gt;阿顺特烦恼&lt;&#x2F;dt&gt;</span><br><span class="line">        &lt;dd data-action&#x3D;&quot;hidden&quot;&gt;Ashuntefannao&lt;&#x2F;dd&gt;</span><br><span class="line">        &lt;dt data-action&#x3D;&quot;toggle&quot;&gt;阿顺&lt;&#x2F;dt&gt;</span><br><span class="line">        &lt;dd data-action&#x3D;&quot;hidden&quot;&gt;Ashun&lt;&#x2F;dd&gt;</span><br><span class="line">      &lt;&#x2F;dl&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    class Card &#123;</span><br><span class="line">      constructor(el) &#123;</span><br><span class="line">        el.addEventListener(&quot;click&quot;, (e) &#x3D;&gt; &#123;</span><br><span class="line">          let action &#x3D; e.target.dataset.action;</span><br><span class="line">          this[action](e);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      toggle(event) &#123;</span><br><span class="line">        event.target</span><br><span class="line">          .querySelectorAll(&quot;[data-action&#x3D;&#39;hidden&#39;]&quot;)</span><br><span class="line">          .forEach((elem) &#x3D;&gt; (elem.hidden &#x3D; true));</span><br><span class="line">        event.target.nextElementSibling.hidden &#x3D; false;</span><br><span class="line">      &#125;</span><br><span class="line">      hidden(event) &#123;</span><br><span class="line">        event.target.hidden &#x3D; true;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    new Card(document.querySelector(&quot;.tab&quot;));</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>下面实现通过代理事件行为，在表单提交时禁用提交按钮，并记录提示次数</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; /&gt;</span><br><span class="line">  &lt;button type=&quot;button&quot; data-submit-disabled data-action=&quot;submit,counter&quot;&gt;提交表单&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    class FORM &#123;</span><br><span class="line">      constructor(el) &#123;</span><br><span class="line">        this.$el = el;</span><br><span class="line">        this.sum = 0;</span><br><span class="line">        el.addEventListener(&quot;click&quot;, (e) =&gt; &#123;</span><br><span class="line">          let actions = e.target.dataset.action;</span><br><span class="line">          actions &amp;&amp;</span><br><span class="line">            actions.split(&quot;,&quot;).forEach((method) =&gt; &#123;</span><br><span class="line">              this[method](e);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      submit(e) &#123;</span><br><span class="line">        this.disabled(e, true);</span><br><span class="line">        console.log(&quot;正在提交&quot;);</span><br><span class="line"></span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">          console.log(&quot;提交成功！&quot;);</span><br><span class="line">          this.disabled(e, false);</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">      &#125;</span><br><span class="line">      disabled(event, boolean) &#123;</span><br><span class="line">        this.$el</span><br><span class="line">          .querySelectorAll(&quot;[data-submit-disabled]&quot;)</span><br><span class="line">          .forEach((btn) =&gt; (btn.disabled = boolean));</span><br><span class="line">      &#125;</span><br><span class="line">      counter() &#123;</span><br><span class="line">        console.log(`提交次数:$&#123;++this.sum&#125;`);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    new FORM(document.querySelector(&quot;form&quot;));</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="未来元素"><a href="#未来元素" class="headerlink" title="未来元素"></a>未来元素</h4><p>下面使用事件代理来对未来元素进行事件绑定</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  function show() &#123;</span><br><span class="line">    console.log(this.textContent)</span><br><span class="line">  &#125;</span><br><span class="line">  const app = document.querySelector(&#x27;#app&#x27;)</span><br><span class="line">  app.addEventListener(&#x27;click&#x27;, () =&gt; &#123;</span><br><span class="line">    show.call(event.target)</span><br><span class="line">  &#125;)</span><br><span class="line">  let newH2 = document.createElement(&#x27;h2&#x27;)</span><br><span class="line">  newH2.textContent = &#x27;Ashuntefannao&#x27;</span><br><span class="line">  app.append(newH2)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以将这个功能封装起来，用来代理某一类未来元素的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">      &lt;section&gt;My name is Section&lt;&#x2F;section&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Element.prototype.on &#x3D; function (EventType, Element, func) &#123;</span><br><span class="line">      this.addEventListener(EventType, (event) &#x3D;&gt; &#123;</span><br><span class="line">        if (event.target.tagName &#x3D;&#x3D;&#x3D; Element.toUpperCase()) &#123;</span><br><span class="line">          func(event);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    let app &#x3D; document.querySelector(&quot;#app&quot;);</span><br><span class="line"></span><br><span class="line">    app.on(&quot;click&quot;, &quot;h2&quot;, (event) &#x3D;&gt; &#123;</span><br><span class="line">      console.log(event.target);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    let h2 &#x3D; document.createElement(&quot;h2&quot;);</span><br><span class="line">    h2.innerText &#x3D; &quot;Ashuntefannao&quot;;</span><br><span class="line">    app.append(h2);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="默认行为"><a href="#默认行为" class="headerlink" title="默认行为"></a>默认行为</h3><p>JS中有些对象会设置默认事件处理程序，比如A链接在点击时会进行跳转，点击submit会提交表单信息…</p>
+<p>一般默认处理程序会在用户定义的处理程序后执行，我们可以在事件处理函数中取消默认事件的执行。</p>
+<ul>
+<li>使用onclick绑定的事件处理程序，return false 可以阻止默认行为</li>
+<li>推荐使用<code>event.preventDefault()</code>阻止默认行为</li>
+</ul>
+<p>下面阻止超链接的默认行为</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;https://www.baidu.com&quot;&gt;百度一下，你就知道&lt;/a&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  document.querySelector(&#x27;a&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; &#123;</span><br><span class="line">    event.preventDefault()</span><br><span class="line">    alert(event.target.innerText)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="文档事件"><a href="#文档事件" class="headerlink" title="文档事件"></a>文档事件</h3><p>下面来学习针对文档事件的处理。</p>
+<h4 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h4><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>window.onload</td>
+<td>文档解析及外部资源加载后</td>
+</tr>
+<tr>
+<td>DOMContentLoaded</td>
+<td>文档解析后执行，不需要等待图片/样式文件等外部资源加载，该事件只能通过addEventListener设置</td>
+</tr>
+<tr>
+<td>window.onbeforeunload</td>
+<td>文档刷新或关闭时</td>
+</tr>
+<tr>
+<td>window.onunload</td>
+<td>文档卸载时</td>
+</tr>
+<tr>
+<td>scroll</td>
+<td>页面滚动时</td>
+</tr>
+</tbody></table>
+<h4 id="onload"><a href="#onload" class="headerlink" title="onload"></a>onload</h4><p>window.onload事件在文档解析后及图片、外部样式文件等资源加载完后执行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  window.onload = function () &#123;</span><br><span class="line">    alert(&#x27;阿顺特烦恼&#x27;)</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="DOMContentLoaded"><a href="#DOMContentLoaded" class="headerlink" title="DOMContentLoaded"></a>DOMContentLoaded</h4><p>DOMContentLoaded事件在文档标签解析后执行，不需要等外部图片、样式文件、JS文件等资源加载</p>
+<ul>
+<li>该事件只能够通过<code>addEventListener</code>添加</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  window.addEventListener(&#x27;DOMContentLoaded&#x27;, (event) =&gt; &#123;</span><br><span class="line">    alert(&#x27;阿顺特烦恼&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="onbeforeunload"><a href="#onbeforeunload" class="headerlink" title="onbeforeunload"></a>onbeforeunload</h4><p>当浏览器窗口关闭或者刷新时，会触发beforeunload事件，可以取消关闭或刷新页面。</p>
+<ul>
+<li>返回值为非空字符串时，有些浏览器会做为弹出的提示信息内容</li>
+<li>部分浏览器使用addEventListener无法绑定事件</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window.onbeforeunload = function (e) &#123;</span><br><span class="line">  return &#x27;真的要离开吗？&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="unload"><a href="#unload" class="headerlink" title="unload"></a>unload</h4><p>window.unload事件在文档资源被卸载时执行，在beforeunload后执行</p>
+<ul>
+<li>不能执行alert、confirm等交互指令</li>
+<li>发生错误也不会阻止页面关闭或刷新</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//文档被关闭时，在localStorage中存储用户信息</span><br><span class="line">window.addEventListener(&#x27;unload&#x27;, function (e) &#123;</span><br><span class="line">  localStorage.setItem(&#x27;name&#x27;, &#x27;Ashun&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h3><h4 id="事件类型-1"><a href="#事件类型-1" class="headerlink" title="事件类型"></a>事件类型</h4><p>针对鼠标操作的行为有多种事件类型</p>
+<ul>
+<li>鼠标事件会触发在Z-INDEX 层级最高的那个元素上</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>click</td>
+<td>鼠标单击事件，同时触发 mousedown/mouseup</td>
+</tr>
+<tr>
+<td>dblclick</td>
+<td>鼠标双击事件</td>
+</tr>
+<tr>
+<td>contextmenu</td>
+<td>点击右键后显示的所在环境的菜单</td>
+</tr>
+<tr>
+<td>mousedown</td>
+<td>鼠标按下</td>
+</tr>
+<tr>
+<td>mouseup</td>
+<td>鼠标抬起时</td>
+</tr>
+<tr>
+<td>mousemove</td>
+<td>鼠标移动时</td>
+</tr>
+<tr>
+<td>mouseover</td>
+<td>鼠标移动时</td>
+</tr>
+<tr>
+<td>mouseout</td>
+<td>鼠标从元素上离开时</td>
+</tr>
+<tr>
+<td>mouseup</td>
+<td>鼠标抬起时</td>
+</tr>
+<tr>
+<td>mouseenter</td>
+<td>鼠标移入时触发，不产生冒泡行为</td>
+</tr>
+<tr>
+<td>mosueleave</td>
+<td>鼠标移出时触发，不产生冒泡行为</td>
+</tr>
+<tr>
+<td>oncopy</td>
+<td>复制内容时触发</td>
+</tr>
+<tr>
+<td>scroll</td>
+<td>元素滚动时，可以为元素设置overflow:auto; 产生滚动条来测试</td>
+</tr>
+</tbody></table>
+<h4 id="禁止复制"><a href="#禁止复制" class="headerlink" title="禁止复制"></a>禁止复制</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(&#x27;copy&#x27;, () =&gt; &#123;</span><br><span class="line">  event.preventDefault()</span><br><span class="line">  alert(&#x27;禁止复制内容&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="relatedTarget"><a href="#relatedTarget" class="headerlink" title="relatedTarget"></a>relatedTarget</h4><p>relatedTarget是控制鼠标移动事件的来源和目标对象的</p>
+<ul>
+<li>如果移动过快会跳转中间对象</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;Ashuntefannao&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;shun&quot;&gt;SHUN&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(`#app`)</span><br><span class="line">  const shun = document.querySelector(`#shun`)</span><br><span class="line">  app.addEventListener(&#x27;mouseout&#x27;, () =&gt; &#123;</span><br><span class="line">    console.log(event.target)</span><br><span class="line">    console.log(event.relatedTarget)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="mouseenter与mouseleave"><a href="#mouseenter与mouseleave" class="headerlink" title="mouseenter与mouseleave"></a>mouseenter与mouseleave</h4><p>mouseenter与mouseleave事件从子元素移动到父元素时不触发父元素事件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  #app &#123;</span><br><span class="line">    background: #e74c3c;</span><br><span class="line">    padding: 80px;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">  #shun &#123;</span><br><span class="line">    background: #f39c12;</span><br><span class="line">    padding: 30px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"> &lt;div id=&quot;app&quot;&gt;</span><br><span class="line"> 	Ashuntefannao</span><br><span class="line">  &lt;div id=&quot;shun&quot;&gt;SHUN&lt;/div&gt;</span><br><span class="line"> &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  const app = document.querySelector(`#app`)</span><br><span class="line">  const shun = document.querySelector(`#shun`)</span><br><span class="line"></span><br><span class="line">  app.addEventListener(&#x27;mouseenter&#x27;, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;app&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">  shun.addEventListener(&#x27;mouseenter&#x27;, () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;shun&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h3><p>针对键盘输入操作的行为有多种事件类型</p>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Keydown</td>
+<td>键盘按下时，一直按键不松开时keydown事件会重复触发</td>
+</tr>
+<tr>
+<td>keyup</td>
+<td>按键抬起时</td>
+</tr>
+<tr>
+<td>keypress</td>
+<td>按键 按下、抬起 都会触发，一直按键不松开也会持续触发</td>
+</tr>
+</tbody></table>
+<h4 id="事件对象-1"><a href="#事件对象-1" class="headerlink" title="事件对象"></a>事件对象</h4><p>键盘事件产生的事件对象包含相对应的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>keyCode</td>
+<td>返回键盘的ASCII字符数字</td>
+</tr>
+<tr>
+<td>code</td>
+<td>按键码，字符以Key开始，数字以Digit开始，特殊字符有专属名子。左右ALT键字符不同。 不同布局的键盘值会不同</td>
+</tr>
+<tr>
+<td>key</td>
+<td>按键的字符含义表示，大小写不同。不能区分左右ALT等。不同语言操作系统下值会不同</td>
+</tr>
+<tr>
+<td>altKey</td>
+<td>是否按了alt键</td>
+</tr>
+<tr>
+<td>ctrlKey</td>
+<td>是否按了ctlr键</td>
+</tr>
+<tr>
+<td>shiftKey</td>
+<td>是否按了shift键</td>
+</tr>
+<tr>
+<td>metaKey</td>
+<td>是否按了媒体键</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="表单事件"><a href="#表单事件" class="headerlink" title="表单事件"></a>表单事件</h3><p>下面是可以用在表单上的事件类型</p>
+<table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>focus</td>
+<td>获取焦点事件</td>
+</tr>
+<tr>
+<td>blur</td>
+<td>失去焦点事件</td>
+</tr>
+<tr>
+<td>element.focus()</td>
+<td>让元素强制获取焦点</td>
+</tr>
+<tr>
+<td>element.blur()</td>
+<td>让元素失去焦点</td>
+</tr>
+<tr>
+<td>change</td>
+<td>文本框在<code>内容发生改变</code>并<code>失去焦点</code>时触发</td>
+</tr>
+<tr>
+<td>input</td>
+<td><code>value</code> 被修改时，会触发 <code>input</code> 事件</td>
+</tr>
+<tr>
+<td>submit</td>
+<td>提交表单时触发</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/16/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%A9%BA%E9%97%B4%E5%9D%90%E6%A0%87/" rel="prev" title="空间坐标">
+      <i class="fa fa-chevron-left"></i> 空间坐标
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/16/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" rel="next" title="网络请求">
+      网络请求 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">处理程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTML绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">DOM绑定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC"><span class="nav-number">1.2.</span> <span class="nav-text">事件监听</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%A4%9A%E4%B8%AA%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">绑定多个事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AF%B9%E8%B1%A1%E7%BB%91%E5%AE%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">通过对象绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">移除事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%80%89%E9%A1%B9"><span class="nav-number">1.2.4.</span> <span class="nav-text">事件选项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">事件对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8D%95%E8%8E%B7"><span class="nav-number">1.4.</span> <span class="nav-text">冒泡捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.4.1.</span> <span class="nav-text">冒泡行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E5%86%92%E6%B3%A1"><span class="nav-number">1.4.2.</span> <span class="nav-text">阻止冒泡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7"><span class="nav-number">1.4.3.</span> <span class="nav-text">事件捕获</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E4%BB%A3%E7%90%86"><span class="nav-number">1.4.4.</span> <span class="nav-text">事件代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E5%85%83%E7%B4%A0"><span class="nav-number">1.4.5.</span> <span class="nav-text">未来元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.5.</span> <span class="nav-text">默认行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">文档事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">事件类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onload"><span class="nav-number">1.6.2.</span> <span class="nav-text">onload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOMContentLoaded"><span class="nav-number">1.6.3.</span> <span class="nav-text">DOMContentLoaded</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onbeforeunload"><span class="nav-number">1.6.4.</span> <span class="nav-text">onbeforeunload</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unload"><span class="nav-number">1.6.5.</span> <span class="nav-text">unload</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BC%A0%E6%A0%87%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.7.</span> <span class="nav-text">鼠标事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">事件类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E5%A4%8D%E5%88%B6"><span class="nav-number">1.7.2.</span> <span class="nav-text">禁止复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#relatedTarget"><span class="nav-number">1.7.3.</span> <span class="nav-text">relatedTarget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mouseenter%E4%B8%8Emouseleave"><span class="nav-number">1.7.4.</span> <span class="nav-text">mouseenter与mouseleave</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.8.</span> <span class="nav-text">键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1-1"><span class="nav-number">1.8.1.</span> <span class="nav-text">事件对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.9.</span> <span class="nav-text">表单事件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿顺特烦恼"
+      src="/images/headPortrait.jpg">
+  <p class="site-author-name" itemprop="name">阿顺特烦恼</p>
+  <div class="site-description" itemprop="description">阿顺特烦恼,希望大家没有烦恼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/astfn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;astfn" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/ashuntefannao" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;ashuntefannao" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-adn"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿顺特烦恼</span>
+</div>
+  <div class="powered-by">
+     <!-- 外部引入 访客计数器-->
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span><br/>
+      
+      <strong style="color:#ccc">ASHUNTEFANNAO</strong><br/>
+      <span style="color:#ccc;font-size:13px">博客文章版权归作者 阿顺特烦恼 所有</span><br/>
+      <span style="color:#ccc;font-size:13px">欢迎转载 但未经作者同意 必须保留此段声明</span><br/>
+  </div>
+  
+  <!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  -->
+
+
+
+<!-- 外部脚本 -->
+
+<!--以下部分脚本依赖jquery-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--浏览器搞笑标题 //实测会影响图标-->
+	<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/hititle.js"></script>-->
+
+	<!-- 🌸飘落 -->
+		<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/sakura.js"></script>-->
+
+	<!-- 雪花飘落 -->
+	  <!-- <script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js"></script> -->
+
+	<!-- // 文字 -->
+    <!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>-->
+
+<!-- // 烟花 -->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script async type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js"></script>
+
+<!-- // 星星跟随坠落 -->
+	<script async src="https://cdn.jsdelivr.net/gh/cungudafa/cdn@2.1.2/js/cursor.js"></script>
+
+<!-- // 连线 -->
+	<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!-- 样式二（飘动的彩带） -->
+	<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/piao.js" type="text/javascript"></script>
+
+<!--背景切换-->
+  <!--<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
