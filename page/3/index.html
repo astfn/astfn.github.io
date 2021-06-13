@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/Ashun.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/Ashun.ico">
+  <link rel="mask-icon" href="/images/favicons/Ashun.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#34495e","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="阿顺特烦恼,希望大家没有烦恼">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AshunBlog">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="AshunBlog">
+<meta property="og:description" content="阿顺特烦恼,希望大家没有烦恼">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="阿顺特烦恼">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AshunBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AshunBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">好好学习,天天Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/astfn" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/headPortrait.jpg">
+      <meta itemprop="name" content="阿顺特烦恼">
+      <meta itemprop="description" content="阿顺特烦恼,希望大家没有烦恼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AshunBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">网络请求</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-16 13:44:21" itemprop="dateCreated datePublished" datetime="2021-05-16T13:44:21+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-17 09:26:23" itemprop="dateModified" datetime="2021-05-17T09:26:23+08:00">2021-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">Web前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">JavaScript大总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>浏览器天生具发送HTTP请求的能力，比如在在址栏输入内容，提交FORM表单等。本章来学习通过JS程序来管理HTTP请求的能力。</p>
+<h4 id="局部更新"><a href="#局部更新" class="headerlink" title="局部更新"></a>局部更新</h4><p>最传统的网络请求是通过提交表单进行的，表单的提交、地址栏输入内容，都会导致界面的全部刷新。</p>
+<p>而使用JS脚本发送HTTP请求，**<code>不会带来页面的刷新</code>**，我们可以向后台请求数据，拿到数据后渲染到界面上，会有页面局部更新的效果，所以用户体验非常好。</p>
+<h4 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h4><p>请求方式有很多，一般使用以下4种</p>
+<ol>
+<li><p>GET</p>
+<blockquote>
+<p>该方式一般应用于 单纯获取数据 的业务，请求参数包含在URL内</p>
+</blockquote>
+</li>
+<li><p>POST</p>
+<blockquote>
+<p>该方式一般应用于 向服务器提交数据 ，请求参数置于请求体当中</p>
+</blockquote>
+</li>
+<li><p>PUT</p>
+<blockquote>
+<p>该方式一般应用于 更改服务器数据 的业务</p>
+</blockquote>
+</li>
+<li><p>DELETE</p>
+<blockquote>
+<p>该方式一般应用于 删除服务器数据 的业务</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><h4 id="方法介绍"><a href="#方法介绍" class="headerlink" title="方法介绍"></a>方法介绍</h4><h5 id="open"><a href="#open" class="headerlink" title="open"></a>open</h5><p><code>open()</code>用于创建请求（单纯创建，并不发送）</p>
+<blockquote>
+<p>注意：如果<code>open()</code>的<code>method</code>为<code>GET</code>，则<code>url</code>需要自带参数。</p>
+<ul>
+<li>get请求就是通过url进行的</li>
+<li>参数格式<code>key=val</code>多个参数之间使用<code>&amp;</code>隔开</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>method</td>
+<td>请求方式</td>
+</tr>
+<tr>
+<td>url</td>
+<td>请求地址</td>
+</tr>
+<tr>
+<td>async</td>
+<td>是否异步(默认为true)</td>
+</tr>
+</tbody></table>
+<h5 id="send"><a href="#send" class="headerlink" title="send"></a>send</h5><p><code>send(body)</code>用于发送请求</p>
+<ul>
+<li>若请求方式为<code>GET</code>，则不用为其传递参数(get请求在url中传参)。</li>
+<li>若请求方式为<code>POST</code>,则要把参数传递到<code>send(body)</code>中</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>body</td>
+<td>请求体(要发送的数据)（字符串类型）</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">xhr.open(&quot;GET&quot;, &quot;http:&#x2F;&#x2F;127.0.0.1:5500&#x2F;test?name&#x3D;Ashun&quot;);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application&#x2F;json&quot;);</span><br><span class="line">xhr.open(&quot;POST&quot;, &quot;http:&#x2F;&#x2F;127.0.0.1:5500&#x2F;test&quot;);</span><br><span class="line">let body&#x3D;&#123; name: &quot;Ashun&quot; &#125;;</span><br><span class="line">xhr.send(body);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="setRequestHeader"><a href="#setRequestHeader" class="headerlink" title="setRequestHeader"></a>setRequestHeader</h5><p>用于设置请求头，一般我们会指定编码方式。</p>
+<ul>
+<li>请求方式为<code>POST</code>，需要设置请求头的编码方式，<code>GET</code>不用设置。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>header</td>
+<td>请求头的key（字符串类型）</td>
+</tr>
+<tr>
+<td>vlaue</td>
+<td>请求头的value（字符串类型）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>当传递的参数为form表单形式的数据，则需要设置<code>Content-type:application/x-www-form-urlencoded</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">xhr.open(&quot;post&quot;, &quot;http:&#x2F;&#x2F;127.0.0.1:5500&#x2F;test&quot;);</span><br><span class="line">xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">xhr.send(&quot;name&#x3D;Ashun&quot;);</span><br></pre></td></tr></table></figure></li>
+<li><p>若传递的参数为json字符串，则需要设置<code>Content-type:application/json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">xhr.open(&quot;post&quot;, &quot;http:&#x2F;&#x2F;127.0.0.1:5500&#x2F;test&quot;);</span><br><span class="line">xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application&#x2F;json&quot;);</span><br><span class="line">xhr.send(JSON.stringify(&#123; name: &quot;Ashun&quot; &#125;));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="getAllResponseHeaders"><a href="#getAllResponseHeaders" class="headerlink" title="getAllResponseHeaders"></a>getAllResponseHeaders</h5><p>用于获取响应头，返回所有的响应头数据（字符串类型）。</p>
+<h5 id="getResponseHeader"><a href="#getResponseHeader" class="headerlink" title="getResponseHeader"></a>getResponseHeader</h5><p>获取响应头中指定<code>header</code>的值，返回该响应头的数据（字符串类型）。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>header</td>
+<td>响应头的key（字符串类型）</td>
+</tr>
+</tbody></table>
+<h5 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h5><p>终止请求。</p>
+<hr>
+<h4 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h4><h5 id="status"><a href="#status" class="headerlink" title="status"></a>status</h5><p><code>HTTP</code>状态码，如<code>200/404</code>等等。</p>
+<h5 id="statusText"><a href="#statusText" class="headerlink" title="statusText"></a>statusText</h5><p><code>HTTP</code>状态文本（字符串），与状态码对应如：OK、NotFound…</p>
+<table>
+<thead>
+<tr>
+<th align="center">status</th>
+<th align="center">statusText</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">200</td>
+<td align="center">OK</td>
+</tr>
+<tr>
+<td align="center">404</td>
+<td align="center">NotFound</td>
+</tr>
+</tbody></table>
+<h5 id="readyState"><a href="#readyState" class="headerlink" title="readyState"></a>readyState</h5><p><code>xhr</code>状态码，使用<code>XmlHttpRequest</code>时共有5种状态。</p>
+<table>
+<thead>
+<tr>
+<th>状态值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>未初始化，尚未调用open()方法</td>
+</tr>
+<tr>
+<td>1</td>
+<td>初始化，调用了open()方法，未调用send()方法</td>
+</tr>
+<tr>
+<td>2</td>
+<td>发送，已经调用了send()方法，未接收到响应</td>
+</tr>
+<tr>
+<td>3</td>
+<td>接收，已经接收到部分响应数据</td>
+</tr>
+<tr>
+<td>4</td>
+<td>完成，已经接收到全部响应数据</td>
+</tr>
+</tbody></table>
+<h5 id="responseText"><a href="#responseText" class="headerlink" title="responseText"></a>responseText</h5><p>这是服务器返回的数据（字符串类型）</p>
+<hr>
+<h4 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h4><p>以下回调函数需要我们手动配置，当达到对应的状态后自动回调</p>
+<h5 id="onload"><a href="#onload" class="headerlink" title="onload"></a>onload</h5><p>当请求完毕后，会自动执行该函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xhr.onload &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(xhr.getAllResponseHeaders());</span><br><span class="line">  console.log(xhr.responseText);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="onerror"><a href="#onerror" class="headerlink" title="onerror"></a>onerror</h5><p>当请求产生错误时，会自动执行该函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xhr.onerror &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(xhr.status);</span><br><span class="line">  console.log(&quot;请求失败&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="onreadystatechange"><a href="#onreadystatechange" class="headerlink" title="onreadystatechange"></a>onreadystatechange</h5><p>当xhr状态码改变时，自动回调。 可以结合xhr、HTTP状态码，对请求是否成功做出判断。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F;请求结束，并且成功</span><br><span class="line">  if (xhr.readyState &#x3D;&#x3D; 4 &amp;&amp; xhr.status &#x3D;&#x3D;&#x3D; 200) &#123; </span><br><span class="line">    console.log(xhr.responseText);</span><br><span class="line">  &#125; else if (xhr.status &#x3D;&#x3D; 404) &#123;</span><br><span class="line">    console.log(&quot;请求失败&quot;);</span><br><span class="line">  &#125;	else if(xhr.status &#x3D;&#x3D; 500)&#123;</span><br><span class="line">    console.log(&quot;服务器内部错误&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a>FormData</h4><p><code>FormData</code>是JavaScript的一个内置对象，当满足以下使用条件时，会使请求变得更加简便</p>
+<ul>
+<li>使用表单<code>form</code>发送请求</li>
+<li>请求方式为<code>POST</code></li>
+</ul>
+<p><strong>使用步骤</strong></p>
+<ol>
+<li>实例化对象，并传入表单Dom<code>let formdata=new FormData(formDom)</code></li>
+<li>将其置于请求体中<code>xhr.send(formdata)</code></li>
+</ol>
+<p>FormData对象，会自动将传入的表单Dom中的数据，转化为正确的形式（<code>key=val</code>多个参数使用<code>&amp;</code>隔开）。</p>
+<p>通过使用步骤可知，使用FormData请求的方式必须为<code>POST</code>(请求参数置于请求体当中)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">      &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; &#x2F;&gt;</span><br><span class="line">      &lt;input type&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot; &#x2F;&gt;</span><br><span class="line">      &lt;button type&#x3D;&quot;button&quot;&gt;Login&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">      let formDom &#x3D; document.querySelector(&quot;form&quot;);</span><br><span class="line">      let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">      let btn &#x3D; document.querySelector(&quot;button&quot;);</span><br><span class="line">      btn.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F;如果请求的是同源服务器，那么可以省略掉协议、域名、端口</span><br><span class="line">        xhr.open(&quot;post&quot;, &quot;&#x2F;formdata0&quot;);</span><br><span class="line">        let formdata &#x3D; new FormData(formDom);</span><br><span class="line">        xhr.send(formdata);</span><br><span class="line">        xhr.onload &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">          xhr.status &#x3D;&#x3D; 200 &amp;&amp; console.log(xhr.responseText);</span><br><span class="line">        &#125;;</span><br><span class="line">        xhr.onerror &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">          console.log(xhr.status);</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若不使用FormData，则我们需要做更多的操作</p>
+<ul>
+<li>收集表单元素的数据，并以正确格式拼接（<code>FormData</code>自动收集）</li>
+<li>发送请求前，需要设置请求头（<code>FormData</code>不需要）</li>
+</ul>
+<hr>
+<h4 id="请求-返回类型"><a href="#请求-返回类型" class="headerlink" title="请求/返回类型"></a>请求/返回类型</h4><p>页面向服务器提交数据、服务器返回给浏览器数据。在这两个过程中，若传递的是<code>引用类型数据</code>，则最终都需要转化为<code>JSON String</code>。</p>
+<p><strong>页面向服务器提交数据</strong></p>
+<p>向服务器提交数据，请求方式为<code>POST</code>，若发送的数据为引用类型，需要设置响应头信息<code>Content-Type:application/json</code>,且放入请求体中的数据必须是JSON字符串(<code>send(JSON.stringify(data))</code>)</p>
+<p><strong>服务器返回给浏览器数据</strong></p>
+<p>服务器可以直接返回页面 引用类型 数据，但是页面接收到的还是<code>JSON String</code>，需要将数据反序列化得到真正的数据。</p>
+<p>发送请求</p>
+<ul>
+<li>若直接接收服务器返回的引用类型数据，则为JSON String</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">xhr.open(&quot;post&quot;, &quot;&#x2F;test&quot;);</span><br><span class="line">xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application&#x2F;json&quot;);</span><br><span class="line">xhr.send(JSON.stringify(&#123; name: &quot;Ashun&quot; &#125;));</span><br><span class="line">xhr.onload &#x3D; function () &#123;</span><br><span class="line">  console.log(typeof xhr.responseText, xhr.responseText);</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;结果： string &#123; &quot;name&quot;: &quot;Ashun&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以判断响应头信息，返回对应的数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">      xhr.onload &#x3D; function () &#123;</span><br><span class="line">        let isJson &#x3D; xhr</span><br><span class="line">          .getResponseHeader(&quot;Content-Type&quot;)</span><br><span class="line">          .includes(&quot;application&#x2F;json&quot;);</span><br><span class="line">        isJson</span><br><span class="line">          ? console.log(JSON.parse(xhr.responseText))</span><br><span class="line">          : console.log(xhr.responseText);</span><br><span class="line">      &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>服务器响应</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.post(&quot;&#x2F;test&quot;, (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  let postRes &#x3D; &quot;&quot;;</span><br><span class="line">  req.on(&quot;data&quot;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">    postRes +&#x3D; chunk;</span><br><span class="line">  &#125;);</span><br><span class="line">  req.on(&quot;end&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">    res.send(JSON.parse(postRes));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="简单封装"><a href="#简单封装" class="headerlink" title="简单封装"></a>简单封装</h3><p>​    上面我们了解了<code>Ajax</code>的基本使用，现在我们可以封装一个<code>Ajax</code>请求处理函数，让请求更加的简便。</p>
+<p><strong>需求</strong></p>
+<p>每次请求的过程，都需要经历以下步骤</p>
+<ul>
+<li>创建xhr对象</li>
+<li>初始化请求</li>
+<li>设置请求头(post)</li>
+<li>发送请求</li>
+<li>请求完成后的处理</li>
+</ul>
+<p>我们可以将上述步骤抽离出来，把需要改变的部分暴露出去，让外部来决定，即：请求方式、请求地址、是否设置请求头、传递的参数、请求完毕后的具体操作。</p>
+<p>还要根据服务器返回不同类型的结果进行判断，正确提交给外部。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">function ajax(preset) &#123;</span><br><span class="line">  let options &#x3D; Object.assign(</span><br><span class="line">    &#123;</span><br><span class="line">      type: &quot;get&quot;,</span><br><span class="line">      url: &quot;&quot;,</span><br><span class="line">      data: &#123;&#125;,</span><br><span class="line">      header: &#123;</span><br><span class="line">        [&quot;Content-Type&quot;]: &quot;application&#x2F;x-www-form-urlencoded&quot;,</span><br><span class="line">      &#125;,</span><br><span class="line">      success: (result, xhr) &#x3D;&gt; console.log(result),</span><br><span class="line">      error: (xhr) &#x3D;&gt; console.log(xhr.status),</span><br><span class="line">    &#125;,</span><br><span class="line">    preset</span><br><span class="line">  );</span><br><span class="line">  &#x2F;&#x2F;数据拼接</span><br><span class="line">  let queryStr &#x3D; Object.entries(options.data)</span><br><span class="line">    .map(([key, val]) &#x3D;&gt; &#96;$&#123;key&#125;&#x3D;$&#123;val&#125;&#96;)</span><br><span class="line">    .join(&quot;&amp;&quot;);</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F;请求处理</span><br><span class="line">  const xhr &#x3D; new XMLHttpRequest();</span><br><span class="line">  if (options.type &#x3D;&#x3D; &quot;get&quot;) &#123;</span><br><span class="line">    xhr.open(options.type, &#96;$&#123;options.url&#125;?$&#123;queryStr&#125;&#96;);</span><br><span class="line">    xhr.send();</span><br><span class="line">  &#125;</span><br><span class="line">  if (options.type &#x3D;&#x3D; &quot;post&quot;) &#123;</span><br><span class="line">    xhr.open(options.type, options.url);</span><br><span class="line">    &#x2F;&#x2F;设置header</span><br><span class="line">    Object.entries(options.header).forEach(([prop, val]) &#x3D;&gt; &#123;</span><br><span class="line">      xhr.setRequestHeader(prop, val);</span><br><span class="line">    &#125;);</span><br><span class="line">    let contentType &#x3D; options.header[&quot;Content-Type&quot;];</span><br><span class="line">    &#x2F;&#x2F;根据请求头信息，判断发送数据的形式</span><br><span class="line">    contentType.includes(&quot;json&quot;)</span><br><span class="line">      ? xhr.send(JSON.stringify(options.data))</span><br><span class="line">      : xhr.send(queryStr);</span><br><span class="line">  &#125;</span><br><span class="line">  xhr.onload &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;根据响应头信息，返回对应类型的数据</span><br><span class="line">    let isJson &#x3D; xhr.getResponseHeader(&quot;Content-Type&quot;).includes(&quot;json&quot;);</span><br><span class="line">    let result &#x3D; isJson ? JSON.parse(xhr.responseText) : xhr.responseText;</span><br><span class="line">    &#x2F;&#x2F;根据HTTP状态码，执行不同的callback</span><br><span class="line">    xhr.status &#x3D;&#x3D; 200 ? options.success(result, xhr) : options.error(xhr);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实例测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ajax(&#123;</span><br><span class="line">  type: &quot;post&quot;,</span><br><span class="line">  url: &quot;test&quot;,</span><br><span class="line">  header: &#123;</span><br><span class="line">    [&quot;Content-Type&quot;]: &quot;application&#x2F;json&quot;,</span><br><span class="line">  &#125;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    name: &quot;Ashun&quot;,</span><br><span class="line">  &#125;,</span><br><span class="line">  success: (res, xhr) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(res, xhr.status);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="FETCH"><a href="#FETCH" class="headerlink" title="FETCH"></a>FETCH</h3><p><code>fetch(url,&#123;options&#125;)</code>是JS升级后提供的更简便的网络请求的操作方法，内部使用Promise来完成异步请求。</p>
+<ul>
+<li>response.json()处理为JSON对象，将后台返回的JSON字符串处理为JSON对象</li>
+<li>response.text()处理为TEXT类型数据</li>
+<li>response.blog()处理为Blog二进制数据</li>
+</ul>
+<h4 id="请示步骤"><a href="#请示步骤" class="headerlink" title="请示步骤"></a>请示步骤</h4><p>使用fetch方法发送异步请求需要分以下两步操作</p>
+<h5 id="响应头解析"><a href="#响应头解析" class="headerlink" title="响应头解析"></a>响应头解析</h5><p>第一步对服务器返回的响应头进行解析，会接到Response类创建的对象实例，里面包含以下属性。</p>
+<ul>
+<li><code>status</code>:HTTP状态码</li>
+<li><code>ok</code>:状态码为200-299 时为true的布尔值</li>
+</ul>
+<h5 id="响应内容解析"><a href="#响应内容解析" class="headerlink" title="响应内容解析"></a>响应内容解析</h5><p>第二步对返回的 保存在response.body 中的响应结果进行解析，支持了以下几种方式对结果进行解析，且以下方法都默认返回Promise</p>
+<ul>
+<li>response.json()处理为JSON对象，将后台返回的JSON字符串处理为JSON对象</li>
+<li>response.text()处理为TEXT类型数据</li>
+<li>response.blog()处理为Blog二进制数据</li>
+</ul>
+<blockquote>
+<p>以上方法不能同时使用，因为使用一个方法后数据已经被处理，其他方法就不可以操作了</p>
+</blockquote>
+<h4 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h4><p>下面来体验使用fetch发送请求</p>
+<p><strong>后台服务</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.get(&quot;&#x2F;test&quot;, (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  res.send(&#123; name: &quot;阿顺&quot; &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>发送请求</strong></p>
+<p>以下为发送get请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fetch(&quot;&#x2F;test&quot;).then((result) &#x3D;&gt; &#123;</span><br><span class="line">          return result.json();</span><br><span class="line">        &#125;)</span><br><span class="line">        .then((result) &#x3D;&gt; console.log(result))</span><br><span class="line">        .catch((err) &#x3D;&gt; console.log(err));</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><p>发送POST请求需要设置请求头Request header</p>
+<p><strong>发送请求</strong></p>
+<ul>
+<li>发送的JSON类型需要设置请求头为 <code>application/json;charset=utf-8</code></li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">async function post() &#123;</span><br><span class="line">  let response = await fetch(&quot;/test&quot;, &#123;</span><br><span class="line">    method: &quot;post&quot;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &quot;Content-Type&quot;: &quot;application/json;charset=utf-8&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123; name: &quot;阿顺&quot;, title: &quot;Ashuntefannao&quot; &#125;),</span><br><span class="line">  &#125;);</span><br><span class="line">  if (response.ok) &#123;</span><br><span class="line">    let result = await response.json();</span><br><span class="line">    console.log(result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>后台响应</strong></p>
+<p>将数据原样返回</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.post(&quot;/test&quot;, (req, res) =&gt; &#123;</span><br><span class="line">  let postRes = &quot;&quot;;</span><br><span class="line">  req.on(&quot;data&quot;, (chunk) =&gt; &#123;</span><br><span class="line">    postRes += chunk;</span><br><span class="line">  &#125;);</span><br><span class="line">  req.on(&quot;end&quot;, () =&gt; &#123;</span><br><span class="line">    res.send(JSON.parse(postRes));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿顺特烦恼"
+      src="/images/headPortrait.jpg">
+  <p class="site-author-name" itemprop="name">阿顺特烦恼</p>
+  <div class="site-description" itemprop="description">阿顺特烦恼,希望大家没有烦恼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/astfn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;astfn" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/ashuntefannao" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;ashuntefannao" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-adn"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿顺特烦恼</span>
+</div>
+  <div class="powered-by">
+     <!-- 外部引入 访客计数器-->
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span><br/>
+      
+      <strong style="color:#ccc">ASHUNTEFANNAO</strong><br/>
+      <span style="color:#ccc;font-size:13px">博客文章版权归作者 阿顺特烦恼 所有</span><br/>
+      <span style="color:#ccc;font-size:13px">欢迎转载 但未经作者同意 必须保留此段声明</span><br/>
+  </div>
+  
+  <!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  -->
+
+
+
+<!-- 外部脚本 -->
+
+<!--以下部分脚本依赖jquery-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--浏览器搞笑标题 //实测会影响图标-->
+	<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/hititle.js"></script>-->
+
+	<!-- 🌸飘落 -->
+		<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/sakura.js"></script>-->
+
+	<!-- 雪花飘落 -->
+	  <!-- <script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js"></script> -->
+
+	<!-- // 文字 -->
+    <!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>-->
+
+<!-- // 烟花 -->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script async type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js"></script>
+
+<!-- // 星星跟随坠落 -->
+	<script async src="https://cdn.jsdelivr.net/gh/cungudafa/cdn@2.1.2/js/cursor.js"></script>
+
+<!-- // 连线 -->
+	<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!-- 样式二（飘动的彩带） -->
+	<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/piao.js" type="text/javascript"></script>
+
+<!--背景切换-->
+  <!--<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

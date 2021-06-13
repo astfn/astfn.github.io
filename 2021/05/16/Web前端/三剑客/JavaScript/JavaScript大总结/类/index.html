@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/Ashun.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/Ashun.ico">
+  <link rel="mask-icon" href="/images/favicons/Ashun.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#34495e","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="类基础知识为了和其他语言继承形态一致，JS提供了class 关键词用于模拟传统的class ，但底层实现机制依然是原型继承。 class 只是语法糖为了让类的声明与继承更加简洁清晰。 声明定义可以使用类声明和赋值表达式定义类，推荐使用类声明来定义类 123456789&#x2F;&#x2F;类声明class User &amp;#123;&amp;#125;console.log(new Article());&#x2F;&#x2F;赋值表达式let">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类">
+<meta property="og:url" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/index.html">
+<meta property="og:site_name" content="AshunBlog">
+<meta property="og:description" content="类基础知识为了和其他语言继承形态一致，JS提供了class 关键词用于模拟传统的class ，但底层实现机制依然是原型继承。 class 只是语法糖为了让类的声明与继承更加简洁清晰。 声明定义可以使用类声明和赋值表达式定义类，推荐使用类声明来定义类 123456789&#x2F;&#x2F;类声明class User &amp;#123;&amp;#125;console.log(new Article());&#x2F;&#x2F;赋值表达式let">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/类.assets/Class_1.png">
+<meta property="og:image" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/类.assets/Class_2.png">
+<meta property="og:image" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/类.assets/Class_3.gif">
+<meta property="article:published_time" content="2021-05-16T05:35:21.000Z">
+<meta property="article:modified_time" content="2021-05-17T00:57:53.121Z">
+<meta property="article:author" content="阿顺特烦恼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/类.assets/Class_1.png">
+
+<link rel="canonical" href="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>类 | AshunBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AshunBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">好好学习,天天Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/astfn" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/headPortrait.jpg">
+      <meta itemprop="name" content="阿顺特烦恼">
+      <meta itemprop="description" content="阿顺特烦恼,希望大家没有烦恼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AshunBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-16 13:35:21" itemprop="dateCreated datePublished" datetime="2021-05-16T13:35:21+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-17 08:57:53" itemprop="dateModified" datetime="2021-05-17T08:57:53+08:00">2021-05-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">Web前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">JavaScript大总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>为了和其他语言继承形态一致，JS提供了<code>class</code> 关键词用于模拟传统的<code>class</code> ，但底层实现机制依然是原型继承。</p>
+<p><code>class</code> 只是语法糖为了让类的声明与继承更加简洁清晰。</p>
+<h4 id="声明定义"><a href="#声明定义" class="headerlink" title="声明定义"></a>声明定义</h4><p>可以使用类声明和赋值表达式定义类，推荐使用类声明来定义类</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//类声明</span><br><span class="line">class User &#123;</span><br><span class="line">&#125;</span><br><span class="line">console.log(new Article());</span><br><span class="line"></span><br><span class="line">//赋值表达式</span><br><span class="line">let Article = class &#123;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(new User());</span><br></pre></td></tr></table></figure>
+
+<p>类方法间不需要逗号</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  show() &#123;&#125;</span><br><span class="line">  get() &#123;</span><br><span class="line">    console.log(&quot;get method&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = new User();</span><br><span class="line">as.get();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>使用 <code>constructor</code> 构造函数传递参数，下例中<code>show</code>为构造函数方法，<code>getName</code>为原型方法。</p>
+<ul>
+<li><code>constructor</code> 会在 new 时自动执行</li>
+<li>在<code>class</code>中<code>constructor</code>就相当于普通构造函数的<code>函数体</code>，当使用<code>new</code>进行时实例化时，就会执行构造函数，为实例分配属性。</li>
+<li>在<code>constructor</code>中使用<code>this</code>声明的属性，会被分配到实例本身，在<code>constructor</code>外部定义的<code>方法</code>，相当于添加到<code>class</code>这个构造函数的原型<code>prototype</code>上。（class实际上就是一个函数）</li>
+<li>但是在<code>constructor</code>外部定义的<code>属性</code>依旧会被分配到实例上</li>
+<li>其实创建一个类的过程，其实就是设置该类的原型对象<code>prototype</code>，默认有<code>constructor</code>属性，还可以在原型上压入其它的属性、方法。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.show = function() &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  getName() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = new User(&quot;阿顺&quot;);</span><br><span class="line">console.log(as);</span><br><span class="line">console.log(User.prototype);</span><br><span class="line">console.log(as.hasOwnProperty(&quot;getName&quot;));</span><br><span class="line">console.log(as.hasOwnProperty(&quot;name&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>构造函数用于传递对象的初始参数，但不是必须定义的，如果不设置系统会设置如下类型</p>
+<ul>
+<li>**子构造器中调用完<code>super</code> 后才可以使用 <code>this</code>**。</li>
+<li>至于 <code>super</code> 的概念会在后面讲到，（执行父类中的constructor）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">constructor(...args) &#123;</span><br><span class="line">  super(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h4><p>之前也提到过，**<code>class</code>其实就是函数**</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">&#125;</span><br><span class="line">console.log(typeof User); //function</span><br></pre></td></tr></table></figure>
+
+<p>下面是与普通函数的对比，结构是完全一致的。</p>
+<img src="类.assets/Class_1.png" alt="Class_1" style="zoom:80%;" />
+
+<ul>
+<li><code>constructor</code> 用于定义函构造数体代码</li>
+<li><code>constructor </code> 外部定义的<code>方法</code>，会追加到该 类(构造函数) 的原型上。</li>
+<li><code>constructor </code> 外部定义的<code>属性</code>，依然会分配到实例上</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">	constructor(name) &#123;</span><br><span class="line">		this.name &#x3D; &quot;name&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	getName() &#123;</span><br><span class="line">		return this.name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;普通构造函数</span><br><span class="line">function Ashun(name) &#123;</span><br><span class="line">	this.name &#x3D; &quot;name&quot;;</span><br><span class="line">&#125;</span><br><span class="line">Ashun.prototype.getName &#x3D; function () &#123;</span><br><span class="line">	return this.name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.dir(User);</span><br><span class="line">console.dir(Ashun);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="属性定义"><a href="#属性定义" class="headerlink" title="属性定义"></a>属性定义</h4><p>在calss类中，无论是在<code>constructor </code> 内、外部定义的<code>属性</code>，<strong>都会分配到实例上</strong>。</p>
+<ul>
+<li><code>constructor </code> 内部定义的<code>属性</code>，使用this声明</li>
+<li><code>constructor </code> 外部定义的<code>属性</code>，<strong>不使用</strong>关键字声明。</li>
+</ul>
+<p>在class类中，在<code>constructor </code> 外部定义的<code>方法</code>，会自动添加到该类的原型上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">	site &#x3D; &#96;Ashuntefannao.com&#96;; &#x2F;&#x2F;在constructor外部定义的属性，依然会被分配到实例上</span><br><span class="line">	constructor(name) &#123;</span><br><span class="line">		this.name &#x3D; name;</span><br><span class="line">	&#125;</span><br><span class="line">	show() &#123;</span><br><span class="line">		console.log(this.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(User.prototype.site);&#x2F;&#x2F;undefined</span><br><span class="line">console.log(User.prototype.show);</span><br><span class="line">let as &#x3D; new User(&quot;阿顺&quot;);</span><br><span class="line">console.log(as.name, as.site);&#x2F;&#x2F;阿顺	Ashuntefannao.com</span><br><span class="line">console.table(as);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="函数差异"><a href="#函数差异" class="headerlink" title="函数差异"></a>函数差异</h4><p>虽然class是函数的语法糖，但是与普通构造函数在使用方面还是有一些区别的，这都是为了更加规范的管理原型。</p>
+<ul>
+<li>在class中定义的方法即(原型上的方法)，自动设置为不可枚举。</li>
+</ul>
+<p>我们知道，普通构造函数实例化的对象，通过<code>for/in</code>遍历属性，会访问原型上的属性。但这样可能会在遍历操作过程中，影响原型的属性或方法。所以class自动为原型上的方法设置属性特征<code>enumerable:false</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        class User &#123;</span><br><span class="line">          site &#x3D; &#96;Ashuntefannao.com&#96;;</span><br><span class="line">          constructor(name) &#123;</span><br><span class="line">            this.name &#x3D; name;</span><br><span class="line">          &#125;</span><br><span class="line">          show() &#123;</span><br><span class="line">            console.log(this.name);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        let as &#x3D; new User(&quot;阿顺&quot;);</span><br><span class="line">        for (let key in as) &#123;</span><br><span class="line">          console.log(key);		&#x2F;&#x2F;site name</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对比普通构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        function User(name) &#123;</span><br><span class="line">          this.site &#x3D; &quot;Ashuntefannao.com&quot;;</span><br><span class="line">          this.name &#x3D; name;</span><br><span class="line">        &#125;</span><br><span class="line">        User.prototype.show &#x3D; function () &#123;</span><br><span class="line">          console.log(this.name);</span><br><span class="line">        &#125;;</span><br><span class="line">        let as &#x3D; new User(&quot;阿顺&quot;);</span><br><span class="line">        for (let key in as) &#123;</span><br><span class="line">          console.log(key);  &#x2F;&#x2F;site name show</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h4><p><code>class</code> 默认使用<code>use strict</code> 严格模式执行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        class User &#123;</span><br><span class="line">          site = `Ashuntefannao.com`;</span><br><span class="line">          constructor(name) &#123;</span><br><span class="line">            this.name = name;</span><br><span class="line">          &#125;</span><br><span class="line">          show() &#123;</span><br><span class="line">            !(function () &#123;</span><br><span class="line">              console.log(this); //默认严格模式，打印undefined</span><br><span class="line">            &#125;)();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        let as = new User(&quot;阿顺&quot;);</span><br><span class="line">        as.show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对比普通构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        function User(name) &#123;</span><br><span class="line">          this.site &#x3D; &quot;Ashuntefannao.com&quot;;</span><br><span class="line">          this.name &#x3D; name;</span><br><span class="line">        &#125;</span><br><span class="line">        User.prototype.show &#x3D; function () &#123;</span><br><span class="line">          !(function () &#123;</span><br><span class="line">            console.log(this); &#x2F;&#x2F;非严格模式，this&#x3D;》window</span><br><span class="line">          &#125;)();</span><br><span class="line">        &#125;;</span><br><span class="line">        let as &#x3D; new User(&quot;阿顺&quot;);</span><br><span class="line">        as.show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="静态访问"><a href="#静态访问" class="headerlink" title="静态访问"></a>静态访问</h3><p>​    静态属性、方法：意为只能够被 该类本身 访问的属性和方法，使用类名来调用。</p>
+<ul>
+<li>在class中使用<code>static</code>关键字进行声明</li>
+<li>在普通构造函数中，向构造函数本身压入对应的属性和方法。(构造函数本身也是对象)</li>
+</ul>
+<h4 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h4><p>静态属性即为类设置属性，而不是为实例对象设置，下面是原理实现</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function User() &#123;&#125;</span><br><span class="line">User.site = &quot;阿顺特烦恼&quot;;</span><br><span class="line">console.dir(User);</span><br><span class="line"></span><br><span class="line">const as = new User();</span><br><span class="line">console.log(as.site); //undefiend</span><br><span class="line">console.log(User.site); //阿顺特烦恼 </span><br></pre></td></tr></table></figure>
+
+<p>在 <code>class</code> 中为属性添加 <code>static</code> 关键字即声明为静态属性</p>
+<ul>
+<li>可以把所有实例对象都要使用的值 定义为静态属性</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Request &#123;</span><br><span class="line">  static HOST = &quot;https://www.Ashuntefannao.com&quot;;</span><br><span class="line">  </span><br><span class="line">  query(api) &#123;</span><br><span class="line">    return Request.HOST + &quot;/&quot; + api;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let request = new Request();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><p>指通过类访问不能使用对象访问的方法，比如系统的<code>Math.round()</code>就是静态方法</p>
+<ul>
+<li>一般来讲方法不需要对象属性参与计算就可以定义为静态方法</li>
+</ul>
+<p>下面是静态方法实现原理，向构造函数本身压入方法。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function User() &#123;</span><br><span class="line">  this.show = function() &#123;</span><br><span class="line">    return &quot;this is a object function&quot;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">User.show = function() &#123;</span><br><span class="line">  return &quot;welcome to Ashuntefannao&quot;;</span><br><span class="line">&#125;;</span><br><span class="line">const as = new User();</span><br><span class="line">console.dir(as.show()); //this is a object function</span><br><span class="line">console.dir(User.show()); //welcome to Ashuntefannao</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>class</code> 内声明的方法前使用 <code>static</code> 定义的方法即是静态方法</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  static create(name) &#123;</span><br><span class="line">    return new User(name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = User.create(&quot;阿顺&quot;);</span><br><span class="line">console.log(as);</span><br></pre></td></tr></table></figure>
+
+<p>下面使用静态方法在课程类中的使用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const data = [</span><br><span class="line">  &#123; name: &quot;js&quot;, price: 100 &#125;,</span><br><span class="line">  &#123; name: &quot;mysql&quot;, price: 212 &#125;,</span><br><span class="line">  &#123; name: &quot;React&quot;, price: 98 &#125;</span><br><span class="line">];</span><br><span class="line">class Lesson &#123;</span><br><span class="line">  constructor(data) &#123;</span><br><span class="line">    this.model = data;</span><br><span class="line">  &#125;</span><br><span class="line">  get price() &#123;</span><br><span class="line">    return this.model.price;</span><br><span class="line">  &#125;</span><br><span class="line">  get name() &#123;</span><br><span class="line">    return this.model.name;</span><br><span class="line">  &#125;</span><br><span class="line">  //批量生成对象</span><br><span class="line">  static createBatch(data) &#123;</span><br><span class="line">    return data.map(item =&gt; new Lesson(item));</span><br><span class="line">  &#125;</span><br><span class="line">  //最贵的课程</span><br><span class="line">  static MaxPrice(collection) &#123;</span><br><span class="line">    return collection.reduce((pre, v) =&gt; (pre.price &gt; v.price ? pre : v));</span><br><span class="line">    //  return collection.sort((a, b) =&gt; b.price - a.price)[0];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const lessons = Lesson.createBatch(data);</span><br><span class="line">console.log(lessons);</span><br><span class="line">console.log(Lesson.MaxPrice(lessons).name);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="访问器"><a href="#访问器" class="headerlink" title="访问器"></a>访问器</h3><p>使用访问器可以对对象的属性进行访问控制，下面是使用访问器对私有属性进行管理。</p>
+<h4 id="语法介绍"><a href="#语法介绍" class="headerlink" title="语法介绍"></a>语法介绍</h4><ul>
+<li>使用访问器可以管控属性，有效的防止属性随意修改</li>
+<li>访问器就是在函数前加上 <code>get/set</code>修饰，操作属性时不需要加函数的扩号，直接用函数名</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.data = &#123; name &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  get name() &#123;</span><br><span class="line">    return this.data.name;</span><br><span class="line">  &#125;</span><br><span class="line">  set name(value) &#123;</span><br><span class="line">    if (value.trim() == &quot;&quot;) throw new Error(&quot;invalid params&quot;);</span><br><span class="line">    this.data.name = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new User(&quot;阿顺&quot;);</span><br><span class="line">as.name = &quot;Ashun&quot;;</span><br><span class="line">console.log(as.name);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>设置对象的私有属性有多种方式，包括后面章节介绍的模块封装。</p>
+<h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p><code>public</code> 指不受保护的属性，在类的内部与外部都可以访问到</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  url = &quot;Ashuntefannao.com&quot;;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new User(&quot;阿顺&quot;);</span><br><span class="line">console.log(as.name, as.url);</span><br></pre></td></tr></table></figure>
+
+<h4 id="protected"><a href="#protected" class="headerlink" title="protected"></a>protected</h4><p>protected是受保护的属性修释，不允许外部直接操作，只能在<code>该类</code>及其<code>子类(继承类)</code>中访问的属性</p>
+<h5 id="命名保护"><a href="#命名保护" class="headerlink" title="命名保护"></a>命名保护</h5><p>将属性定义为以 <code>_</code> 开始，来告诉使用者这是一个私有属性，请不要在外部使用。</p>
+<ul>
+<li>外部修改、访问protected属性时可以使用访问器 <code>setter/getter</code> 操作</li>
+<li>但这只是提示，就像吸烟时烟盒上的吸烟有害健康，但还是可以抽的</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Article &#123;</span><br><span class="line">  _host = &quot;https://Ashuntefannao.com&quot;;</span><br><span class="line"></span><br><span class="line">  set host(url) &#123;</span><br><span class="line">    if (!/^https:\/\//i.test(url)) &#123;</span><br><span class="line">      throw new Error(&quot;网址错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    this._host = url;</span><br><span class="line">  &#125;</span><br><span class="line">  get host()&#123;</span><br><span class="line">  	return this._host</span><br><span class="line">  &#125;</span><br><span class="line">  lists() &#123;</span><br><span class="line">    return `$&#123;this._host&#125;/article`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let article = new Article();</span><br><span class="line">console.log(article.lists()); //https://Ashuntefannao.com/article</span><br><span class="line">article.host = &quot;https://ASHUN.com&quot;;</span><br><span class="line">console.log(article.lists()); //https://ASHUN.com/article</span><br><span class="line">console.log(article._host);		//实际上是能够被实例访问的，因为_host属性被分配到了实例上</span><br></pre></td></tr></table></figure>
+
+<p>继承时是可以使用的</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Common &#123;</span><br><span class="line">  _host = &quot;https://Ashuntefannao.com&quot;;</span><br><span class="line">  set host(url) &#123;</span><br><span class="line">    if (!/^https:\/\//i.test(url)) &#123;</span><br><span class="line">      throw new Error(&quot;网址错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    this._host = url;</span><br><span class="line">  &#125;</span><br><span class="line">   get host()&#123;</span><br><span class="line">  	return this._host</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Article extends Common &#123;</span><br><span class="line">  lists() &#123;</span><br><span class="line">    return `$&#123;this._host&#125;/article`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let article = new Article();</span><br><span class="line">console.log(article.lists()); //https://Ashuntefannao.com/article</span><br><span class="line">article.host = &quot;https://ASHUN.com&quot;;</span><br><span class="line">console.log(article.lists()); //https://ASHUN.com/article</span><br></pre></td></tr></table></figure>
+
+<h5 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h5><p>下面使用 <code>Symbol</code>定义protected属性，即在外部通过查看对象结构无法获取的属性</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const protecteds = Symbol();</span><br><span class="line">class Common &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this[protecteds] = &#123;&#125;;</span><br><span class="line">    this[protecteds].host = &quot;https://Ashuntefannao.com&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  set host(url) &#123;</span><br><span class="line">    if (!/^https?:/i.test(url)) &#123;</span><br><span class="line">      throw new Error(&quot;非常网址&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    this[protecteds].host = url;</span><br><span class="line">  &#125;</span><br><span class="line">  get host() &#123;</span><br><span class="line">    return this[protecteds].host;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class User extends Common &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    super();//调用父类的constructor</span><br><span class="line">    this[protecteds].name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  get name() &#123;</span><br><span class="line">    return this[protecteds].name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new User(&quot;阿顺&quot;);</span><br><span class="line">as.host = &quot;https://www.ASHUN.com&quot;;</span><br><span class="line">// console.log(as[Symbol()]);</span><br><span class="line">console.log(as.name);</span><br></pre></td></tr></table></figure>
+
+<h5 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h5><p><strong>WeakMap</strong> 是一组键/值对的集，下面利用<code>WeakMap</code>类型特性定义protected属性</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const _host = new WeakMap();</span><br><span class="line">class Common &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    _host.set(this, &quot;https://Ashuntefannao.com&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  set host(url) &#123;</span><br><span class="line">    if (!/^https:\/\//i.test(url)) &#123;</span><br><span class="line">      throw new Error(&quot;网址错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    _host.set(this, url);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Article extends Common &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">  &#125;</span><br><span class="line">  lists() &#123;</span><br><span class="line">    return `$&#123;_host.get(this)&#125;/article`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let article = new Article();</span><br><span class="line">console.log(article.lists()); //https://Ashuntefannao.com/article</span><br><span class="line">article.host = &quot;https://SHUN.com&quot;;</span><br><span class="line">console.log(article.lists()); //https://SHUN.com/article</span><br></pre></td></tr></table></figure>
+
+<p>也可以统一定义私有属性</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">const protecteds = new WeakMap();</span><br><span class="line">class Common &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    protecteds.set(this, &#123;</span><br><span class="line">      host: &quot;https://Ashuntefannao&quot;,</span><br><span class="line">      port: &quot;80&quot;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  set host(preset) &#123;</span><br><span class="line">    if (!/^https:\/\//i.test(preset.host)) &#123;</span><br><span class="line">      throw new Error(&quot;网址错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    protecteds.set(this, &#123; ...protecteds.get(this), ...preset &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Article extends Common &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">  &#125;</span><br><span class="line">  lists() &#123;</span><br><span class="line">    return `$&#123;protecteds.get(this).host&#125;:$&#123;protecteds.get(this).port&#125;/article`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let article = new Article();</span><br><span class="line">console.log(article.lists()); //https://Ashuntefannao:80/article</span><br><span class="line">article.host = &#123; host: &quot;https://SHUN&quot;, port: 8083 &#125;;</span><br><span class="line">console.log(article.lists()); //https://SHUN:8083/article</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p><code>private</code> 指私有属性，只在当前类可以访问到，并且不允许继承使用</p>
+<ul>
+<li>为属性或方法名前加 <code>#</code> 为声明为私有属性</li>
+<li>私有属性<code>只能</code>在声明的类中使用</li>
+</ul>
+<p>下面声明私有属性 <code>#host</code> 与私有方法 <code>#check</code> 用于检测用户名</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  //private</span><br><span class="line">  #host = &quot;https://Ashuntefannao.com&quot;;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name ;</span><br><span class="line">    this.#check(name);</span><br><span class="line">  &#125;</span><br><span class="line">  set host(url) &#123;</span><br><span class="line">    if (!/^https?:/i.test(url)) &#123;</span><br><span class="line">      throw new Error(&quot;非常网址&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    this.#host = url;</span><br><span class="line">  &#125;</span><br><span class="line">  get host() &#123;</span><br><span class="line">    return this.#host;</span><br><span class="line">  &#125;</span><br><span class="line">  #check = () =&gt; &#123;</span><br><span class="line">    if (this.name.length &lt; 5) &#123;</span><br><span class="line">      throw new Error(&quot;用户名长度不能小于五位&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">let as = new User(&quot;阿顺特烦恼&quot;);</span><br><span class="line">as.host = &quot;https://www.SHUN.com&quot;;</span><br><span class="line">console.log(as[&quot;#host&quot;]);//实例中不能访问类的私有属性</span><br><span class="line">console.log(as.host);	//可以通过getter间接访问</span><br></pre></td></tr></table></figure>
+
+<p>对比普通构造函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function User(name) &#123;</span><br><span class="line">	let privateProp &#x3D; &#123; name &#125;;</span><br><span class="line">	Object.defineProperty(this, &quot;name&quot;, &#123;</span><br><span class="line">			get() &#123;</span><br><span class="line">				return privateProp.name;</span><br><span class="line">			&#125;,</span><br><span class="line">			set(newVal) &#123;</span><br><span class="line">				privateProp.name &#x3D; newVal;</span><br><span class="line">			&#125;,</span><br><span class="line">	&#125;);     </span><br><span class="line">&#125;</span><br><span class="line">let as &#x3D; new User(&quot;Ashun&quot;);</span><br><span class="line">console.log(as.name);</span><br><span class="line">console.log(as.privateProp);	&#x2F;&#x2F;undefined</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="详解继承"><a href="#详解继承" class="headerlink" title="详解继承"></a>详解继承</h3><h4 id="属性继承"><a href="#属性继承" class="headerlink" title="属性继承"></a>属性继承</h4><p>class实现属性继承的原型如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function User(name) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">function Admin(name) &#123;</span><br><span class="line">  User.call(this, name); </span><br><span class="line">&#125;</span><br><span class="line">let as = new Admin(&quot;阿顺&quot;);</span><br><span class="line">console.log(as);</span><br></pre></td></tr></table></figure>
+
+<p>这就解释了为什么在子类构造函数中要先执行<code>super</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    super(name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new Admin(&quot;阿顺&quot;);</span><br><span class="line">console.log(as);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="继承原理"><a href="#继承原理" class="headerlink" title="继承原理"></a>继承原理</h4><p><code>class</code> 使用<code>extends</code>关键字实现原型继承。</p>
+<img src="类.assets/Class_2.png" alt="Class_2" style="zoom:70%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(&quot;user.show&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  info() &#123;</span><br><span class="line">    this.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as &#x3D; new Admin(&quot;阿顺&quot;);</span><br><span class="line">console.dir(as);</span><br><span class="line">as.info();</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="方法继承"><a href="#方法继承" class="headerlink" title="方法继承"></a>方法继承</h4><p>原生的继承主要是操作原型链，实现起来比较麻烦，使用 <code>class</code> 就要简单的多了。</p>
+<ul>
+<li>在子类中使用父类同名方法，需要使用<code>super</code>关键字访问父类的方法，当然，如果子类中没有与父类的同名方法，则直接使用<code>this</code>即可，该类没有使用的方法，会到原型上去查找，但是为了更加准确地调用父类方法，推荐使用<code>super</code></li>
+<li>super.show() 执行父类的show方法</li>
+</ul>
+<p>下面是在子类中使用父类的方法<code>show</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">    return `阿顺特烦恼会员: $&#123;this.name&#125;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class User extends Person &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    super(name);</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">    return &quot;is User show&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  run() &#123;</span><br><span class="line">    // return this.show();</span><br><span class="line">    return super.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = new User(&quot;ASHUN&quot;);</span><br><span class="line">console.log(as.run());</span><br></pre></td></tr></table></figure>
+
+<p>class中的<code>extends</code>关键字后面可以跟表达式，也就是说可以使用 <code>extends</code> 继承表达式返回的类</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function controller() &#123;</span><br><span class="line">  return class &#123;</span><br><span class="line">    show() &#123;</span><br><span class="line">      console.log(&quot;user.show&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends controller() &#123;</span><br><span class="line">  info() &#123;</span><br><span class="line">    this.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new Admin();</span><br><span class="line">as.show()</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="super"><a href="#super" class="headerlink" title="super"></a>super</h4><p>表示从当前原型中查找方法，</p>
+<ul>
+<li>super 一直指向当前对象</li>
+<li>super只能在<code>类</code>或<code>对象方法</code>中使用，不能在 独立存在的函数 中使用</li>
+</ul>
+<p>下面是使用 <code>this</code> 模拟<code>super</code>，会有以下问题</p>
+<ul>
+<li><code>this</code>指向调用该方法的对象，结果并不是 <code>admin</code>的<code>name</code>值</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let user = &#123;</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.__proto__.show();	//this=&gt;user</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(admin.show()); //user</span><br></pre></td></tr></table></figure>
+
+<p>为了解决以上问题，需要调用父类方法时改变<code>this</code>指向</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let user = &#123;</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.__proto__.show.call(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(admin.show());//admin</span><br></pre></td></tr></table></figure>
+
+<p>上面看似结果正常，但如果是多层继承时，会出现新的问题</p>
+<ul>
+<li>我们期望使用<code>common.show</code>，但因为始终传递的是当前对象<code>this</code> ，造成从 <code>this</code> 原型循环调用</li>
+<li><code>admin.get</code>调用父级原型上的show，并绑定了admin的this，所以当执行user.show()时，this为admin，又会导致admin调用user.show()，周而复始，产生循环调用。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">let common = &#123;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(&quot;common.init&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let user = &#123;</span><br><span class="line">  __proto__: common,</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.__proto__.show.call(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  get() &#123;</span><br><span class="line">    return this.__proto__.show.call(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(admin.get());</span><br></pre></td></tr></table></figure>
+
+<p>为了解决以上问题 <code>js</code> 提供了 <code>super</code> 关键字</p>
+<ul>
+<li>使用 <code>super</code> 调用时，在所有继承中 <code>this</code> 始终为调用对象</li>
+<li><code>super</code> 是用来查找当前对象的原型，而不像上面使用 <code>this</code> 查找原型造成死循环</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">let common = &#123;</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let user = &#123;</span><br><span class="line">  __proto__: common,</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return super.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  get() &#123;</span><br><span class="line">    return super.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(admin.get());</span><br></pre></td></tr></table></figure>
+
+<p>虽然使用<code>super</code>调用父级方法，但<code>this指向当前对象</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let common &#x3D; &#123;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(&quot;common.init&quot;);</span><br><span class="line">    console.log(this.name);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">let user &#x3D; &#123;</span><br><span class="line">  __proto__: common,</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return super.show();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">let admin &#x3D; &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  get() &#123;</span><br><span class="line">    return super.show(); &#x2F;&#x2F;虽然使用super调用父级方法，但this指向当前对象</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">admin.get();	&#x2F;&#x2F;common.init admin</span><br></pre></td></tr></table></figure>
+
+<p><code>super</code> <strong>只能在</strong><code>类</code>或<code>对象的方法</code>中使用，而不能在独立存在的函数中使用，下面将产生错误</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let user = &#123;</span><br><span class="line">  name: &quot;user&quot;,</span><br><span class="line">  show() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let admin = &#123;</span><br><span class="line">  __proto__: user,</span><br><span class="line">  name: &quot;admin&quot;,</span><br><span class="line">  get: function() &#123;</span><br><span class="line">    return super.show();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">console.log(admin.get()); //Uncaught SyntaxError: &#x27;super&#x27; keyword unexpected here</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p><code>super</code> 指向父类引用，在构造函数<code>constructor</code> 中必须先调用<code>super()</code>，因为这样才能够继承父级原型的属性、方法。</p>
+<ul>
+<li><code>super()</code> 调用父类的构造函数<code>constructor()</code></li>
+<li>必须在 <code>constructor</code> 函数里的<code>this</code> 使用前执行 <code>super()</code></li>
+<li>若不手动配置<code>super()</code>,系统会默认执行</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    super(name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as = new Admin(&quot;阿顺&quot;);</span><br><span class="line">as.show();</span><br></pre></td></tr></table></figure>
+
+<p><code>constructor</code> 中先调用 <code>super</code> 方法的原理如下</p>
+<ul>
+<li>利用父级构造函数，初始化实例属性</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Parent(name) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">function User(...args) &#123;</span><br><span class="line">  Parent.apply(this, args);</span><br><span class="line">&#125;</span><br><span class="line">User.prototype = Object.create(User.prototype)</span><br><span class="line">User.prototype.constructor = User;</span><br><span class="line">const as = new User(&quot;阿顺&quot;);</span><br><span class="line">console.log(as.name);</span><br></pre></td></tr></table></figure>
+
+<p>若不手动配置<code>super(...args)</code>,系统会默认执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(this.name, this.age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  constructor(...args) &#123;</span><br><span class="line">    super(..args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let as &#x3D; new Admin(&quot;阿顺&quot;,18);</span><br><span class="line">as.show();</span><br></pre></td></tr></table></figure>
+
+<p>与下方代码结果相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">    console.log(this.name, this.age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;&#125;</span><br><span class="line">let as &#x3D; new Admin(&quot;阿顺&quot;,18);</span><br><span class="line">as.show();</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="父类方法"><a href="#父类方法" class="headerlink" title="父类方法"></a>父类方法</h4><p>之前已经提到过，使用<code>super</code>指向父级原型引用，所以可以通过<code>super</code>调用父级原型的方法，并且this指向当前对象。</p>
+<ul>
+<li>不添加方法名是执调用父类构造函数<code>constructor</code></li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  getName() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    super(name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = new Admin(&quot;阿顺&quot;);</span><br><span class="line">console.log(as.getName());</span><br></pre></td></tr></table></figure>
+
+<p>下面是通过父类方法获取课程总价</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Controller &#123;</span><br><span class="line">  sum() &#123;</span><br><span class="line">    return this.data.reduce((t, c) =&gt; t + c.price, 0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line">class Lesson extends Controller &#123;</span><br><span class="line">  constructor(lessons) &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.data = lessons;</span><br><span class="line">  &#125;</span><br><span class="line">  info() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      totalPrice: super.sum(),</span><br><span class="line">      data: this.data</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let data = [</span><br><span class="line">  &#123; name: &quot;js&quot;, price: 100 &#125;,</span><br><span class="line">  &#123; name: &quot;mysql&quot;, price: 212 &#125;,</span><br><span class="line">  &#123; name: &quot;vue.js&quot;, price: 98 &#125;</span><br><span class="line">];</span><br><span class="line">const as = new Lesson(data);</span><br><span class="line">console.table(as.info());</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h4 id="方法覆盖"><a href="#方法覆盖" class="headerlink" title="方法覆盖"></a>方法覆盖</h4><p>即在子类中设置与父类同名的方法，这样就会优先调用子类自身的方法，子类自身没有，才会攀爬原型进行查找。</p>
+<p>子类存在父类同名方法时使用子类方法</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  constructor(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  say() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;</span><br><span class="line">  say() &#123;</span><br><span class="line">    return &quot;阿顺特烦恼：&quot; + super.say();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const as = new Admin(&quot;阿顺&quot;);</span><br><span class="line">console.log(as.say());</span><br></pre></td></tr></table></figure>
+
+<p>下面是覆盖父类方法，只获取课程名称</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Controller &#123;</span><br><span class="line">  say() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">  &#125;</span><br><span class="line">  total() &#123;</span><br><span class="line">    return this.data.reduce((t, c) =&gt; t + c.price, 0);</span><br><span class="line">  &#125;</span><br><span class="line">  getByKey(key) &#123;</span><br><span class="line">    return this.data.filter(item =&gt; item.name.includes(key));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Lesson extends Controller &#123;</span><br><span class="line">  constructor(lessons) &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.data = lessons;</span><br><span class="line">  &#125;</span><br><span class="line">  getByKey(key) &#123;</span><br><span class="line">    return super.getByKey(key).map(item =&gt; item.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let data = [</span><br><span class="line">  &#123; name: &quot;js&quot;, price: 100 &#125;,</span><br><span class="line">  &#123; name: &quot;mysql&quot;, price: 212 &#125;,</span><br><span class="line">  &#123; name: &quot;vue.js&quot;, price: 98 &#125;</span><br><span class="line">];</span><br><span class="line">const hd = new Lesson(data);</span><br><span class="line">console.log(hd.getByKey(&quot;js&quot;));</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="静态继承"><a href="#静态继承" class="headerlink" title="静态继承"></a>静态继承</h4><p>静态的属性和方法也是可以被继承使用的，下面是原理分析</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function User() &#123;&#125;</span><br><span class="line">User.site = &quot;阿顺特烦恼&quot;;</span><br><span class="line">User.url = function() &#123;</span><br><span class="line">  return &quot;Ashuntefannao.com&quot;;</span><br><span class="line">&#125;;</span><br><span class="line">function Admin() &#123;&#125;</span><br><span class="line">Admin.__proto__ = User;</span><br><span class="line">console.dir(Admin);</span><br><span class="line">console.log(Admin.url());</span><br></pre></td></tr></table></figure>
+
+<p>下面使用 <code>class</code> 来演示静态继承</p>
+<ul>
+<li><code>extends</code>也会继承<strong>静态</strong>属性、方法</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">  static site = &quot;阿顺特烦恼&quot;;</span><br><span class="line">  static host() &#123;</span><br><span class="line">    return &quot;Ashuntefannao.com&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  show() &#123;</span><br><span class="line">  	console.log(User.site, User.host());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Admin extends User &#123;&#125;</span><br><span class="line">console.log(Admin.site);</span><br><span class="line">let as = new Admin();</span><br><span class="line">as.show();</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="原型检测"><a href="#原型检测" class="headerlink" title="原型检测"></a>原型检测</h4><h5 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h5><p>使用 <code>instanceof</code> 用于检测 构造函数的<code>prototype</code>是否在某个实例的原型链上，下面是在原型中的分析（已经在原型与继承中讲过）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function User() &#123;&#125;</span><br><span class="line">function Admin() &#123;&#125;</span><br><span class="line">Admin.prototype = Object.create(User.prototype);</span><br><span class="line">let as = new Admin();</span><br><span class="line">console.log(as instanceof Admin); //true</span><br><span class="line">console.log(as instanceof User); //true</span><br><span class="line"></span><br><span class="line">console.log(as.__proto__ == Admin.prototype);</span><br><span class="line">console.log(as.__proto__.__proto__ == User.prototype);</span><br></pre></td></tr></table></figure>
+
+<p>下面是递归检测原型的代码，帮助分析 <code>instanceof</code> 的原理</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function checkPrototype(obj, constructor) &#123;</span><br><span class="line">  if (!obj.__proto__) return false;</span><br><span class="line">  if (obj.__proto__ == constructor.prototype) return true;</span><br><span class="line">  return checkPrototype(obj.__proto__, constructor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>class</code> 内部实现就是基于原型，所以使用<code>instanceof</code> 判断和上面原型是一样的</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;&#125;</span><br><span class="line">class Admin extends User &#123;&#125;</span><br><span class="line">let as = new Admin();</span><br><span class="line">console.log(as instanceof Admin);</span><br><span class="line">console.log(as instanceof User);</span><br></pre></td></tr></table></figure>
+
+<h5 id="isPrototypeOf-NaN"><a href="#isPrototypeOf-NaN" class="headerlink" title="isPrototypeOf"></a>isPrototypeOf</h5><p>使用 <code>isPrototypeOf</code> 判断一个对象是否在另一个对象的原型链中，下面是原理分析</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const a = &#123;&#125;;</span><br><span class="line">const b = &#123;</span><br><span class="line">  __proto__: a</span><br><span class="line">&#125;;</span><br><span class="line">const c = &#123;</span><br><span class="line">  __proto__: b</span><br><span class="line">&#125;;</span><br><span class="line">console.log(a.isPrototypeOf(b)); //true</span><br><span class="line">console.log(a.isPrototypeOf(c)); //true</span><br></pre></td></tr></table></figure>
+
+<p>下面在使用 <code>class</code> 语法中使用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;&#125;</span><br><span class="line">class Admin extends User &#123;&#125;</span><br><span class="line">let as = new Admin();</span><br><span class="line">console.log(Admin.prototype.isPrototypeOf(as));</span><br><span class="line">console.log(User.prototype.isPrototypeOf(as));</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="继承内置类"><a href="#继承内置类" class="headerlink" title="继承内置类"></a>继承内置类</h4><p>使用原型扩展内置类</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Arr(...args) &#123;</span><br><span class="line">  args.forEach(item =&gt; this.push(item));</span><br><span class="line">  this.first = function() &#123;</span><br><span class="line">    return this[0];</span><br><span class="line">  &#125;;</span><br><span class="line">  this.max = function() &#123;</span><br><span class="line">    return this.data.sort((a, b) =&gt; b - a)[0];</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Arr.prototype = Object.create(Array.prototype);</span><br><span class="line">let arr = new Arr(&quot;阿顺&quot;, &quot;123&quot;, 18);</span><br><span class="line">console.log(arr.first());</span><br><span class="line">console.log(arr.max())</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>class</code>扩展内置类</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Arr extends Array &#123;</span><br><span class="line">        constructor(...args) &#123;</span><br><span class="line">          super(...args);</span><br><span class="line">        &#125;</span><br><span class="line">        add(val) &#123;</span><br><span class="line">          this.push(val);</span><br><span class="line">        &#125;</span><br><span class="line">        remove(val) &#123;</span><br><span class="line">          let index = this.findIndex((v) =&gt; v == val);</span><br><span class="line">          index &amp;&amp; this.splice(index, 1);</span><br><span class="line">          return index;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">let arr = new Arr(1, 2, 3);</span><br><span class="line">arr.push(&quot;ASHUNTEFANNAO&quot;);</span><br><span class="line">console.log(arr);</span><br><span class="line">console.log(arr.remove(3));</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h4><p>关于<code>mixin</code> 的使用在原型章节已经讨论过，在<code>class</code> 使用也是相同的原理</p>
+<p><code>JS</code>不能实现多继承，如果要使用多个类的方法时可以使用<code>mixin</code>混合模式来完成。</p>
+<ul>
+<li><code>mixin</code> 类是一个包含许多供其它类使用的方法的类</li>
+<li><code>mixin</code> 类不用来继承做为其它类的父类</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const Tool = &#123;</span><br><span class="line">  max(key) &#123;</span><br><span class="line">    return this.data.sort((a, b) =&gt; b[key] - a[key])[0];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Lesson &#123;</span><br><span class="line">  constructor(lessons) &#123;</span><br><span class="line">    this.lessons = lessons;</span><br><span class="line">  &#125;</span><br><span class="line">  get data() &#123;</span><br><span class="line">    return this.lessons;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Object.assign(Lesson.prototype, Tool);</span><br><span class="line">const data = [</span><br><span class="line">  &#123; name: &quot;js&quot;, price: 100 &#125;,</span><br><span class="line">  &#123; name: &quot;mysql&quot;, price: 212 &#125;,</span><br><span class="line">  &#123; name: &quot;vue.js&quot;, price: 98 &#125;</span><br><span class="line">];</span><br><span class="line">let hd = new Lesson(data);</span><br><span class="line">console.log(hd.max(&quot;price&quot;));</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h4><img src="类.assets/Class_3.gif" alt="Class_3" style="zoom:70%;" />
+
+<ul>
+<li>类：Animation、Slide、Panel</li>
+<li>Animation:动画效果的实现</li>
+<li>Slide：处理事件绑定，通过Panel调用动画，实现逻辑</li>
+<li>Panel：用于管理面板的伸缩</li>
+<li>只有Panel extends Animation 在Slide中通过选择器遍历实例化panel。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">        margin: 0px;</span><br><span class="line">        padding: 0;</span><br><span class="line">        box-sizing: border-box;</span><br><span class="line">      &#125;</span><br><span class="line">      body &#123;</span><br><span class="line">        width: 100vw;</span><br><span class="line">        height: 100vh;</span><br><span class="line">        position: relative;</span><br><span class="line">      &#125;</span><br><span class="line">      main &#123;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        width: 80%;</span><br><span class="line">        height: 100%;</span><br><span class="line">      &#125;</span><br><span class="line">      .slide &#123;</span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 100%;</span><br><span class="line">      &#125;</span><br><span class="line">      dl &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        flex-direction: column;</span><br><span class="line">        height: 90%;</span><br><span class="line">      &#125;</span><br><span class="line">      section &#123;</span><br><span class="line">        width: 100%;</span><br><span class="line">        display: flex;</span><br><span class="line">        flex-direction: column;</span><br><span class="line">      &#125;</span><br><span class="line">      section &gt; dt,</span><br><span class="line">      section &gt; dd &#123;</span><br><span class="line">        width: 100%;</span><br><span class="line">        border-radius: 5px;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">        color: rgba(255, 255, 255, 0.8);</span><br><span class="line">      &#125;</span><br><span class="line">      section &gt; dt &#123;</span><br><span class="line">        min-height: 30px;</span><br><span class="line">        background-color: #16a085;</span><br><span class="line">      &#125;</span><br><span class="line">      section &gt; dd &#123;</span><br><span class="line">        height: 200px;</span><br><span class="line">        width: 100%;</span><br><span class="line">        background-color: #f39c12;</span><br><span class="line">        font-size: 24px;</span><br><span class="line">      &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;main&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;slide&quot;&gt;</span><br><span class="line">        &lt;dl&gt;</span><br><span class="line">          &lt;section&gt;</span><br><span class="line">            &lt;dt&gt;Ashun&lt;&#x2F;dt&gt;</span><br><span class="line">            &lt;dd&gt;Ashun&lt;&#x2F;dd&gt;</span><br><span class="line">          &lt;&#x2F;section&gt;</span><br><span class="line">          &lt;section&gt;</span><br><span class="line">            &lt;dt&gt;阿顺&lt;&#x2F;dt&gt;</span><br><span class="line">            &lt;dd&gt;阿顺&lt;&#x2F;dd&gt;</span><br><span class="line">          &lt;&#x2F;section&gt;</span><br><span class="line">          &lt;section&gt;</span><br><span class="line">            &lt;dt&gt;ashun&lt;&#x2F;dt&gt;</span><br><span class="line">            &lt;dd&gt;ashun&lt;&#x2F;dd&gt;</span><br><span class="line">          &lt;&#x2F;section&gt;</span><br><span class="line">        &lt;&#x2F;dl&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;main&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"> class Animation &#123;</span><br><span class="line">        constructor(el) &#123;</span><br><span class="line">          this.el &#x3D; el;</span><br><span class="line">          this.timeOut &#x3D; 6;</span><br><span class="line">          this.step &#x3D; 3;</span><br><span class="line">          this.isShow &#x3D; false;</span><br><span class="line">          this.defaultHeight &#x3D; this.height;</span><br><span class="line">          this.timer &#x3D; undefined;</span><br><span class="line">        &#125;</span><br><span class="line">        get height() &#123;</span><br><span class="line">          return parseFloat(window.getComputedStyle(this.el).height);</span><br><span class="line">        &#125;</span><br><span class="line">        set height(num) &#123;</span><br><span class="line">          this.el.style.height &#x3D; num + &quot;px&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        show(callback) &#123;</span><br><span class="line">          this.isShow &#x3D; true;</span><br><span class="line">          clearInterval(this.timer);</span><br><span class="line">          this.timer &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line">            if (this.height &gt;&#x3D; this.defaultHeight) &#123;</span><br><span class="line">              clearInterval(this.timer);</span><br><span class="line">              callback &amp;&amp; callback(this);</span><br><span class="line">              return;</span><br><span class="line">            &#125;</span><br><span class="line">            this.height &#x3D; this.height + this.step &gt;&#x3D; this.defaultHeight</span><br><span class="line">                ? this.defaultHeight</span><br><span class="line">                : this.height + this.step;</span><br><span class="line">          &#125;, this.timeOuttimeOut);</span><br><span class="line">        &#125;</span><br><span class="line">        hide(callback) &#123;</span><br><span class="line">          this.isShow &#x3D; false;</span><br><span class="line">          clearInterval(this.timer);</span><br><span class="line">          this.timer &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line">            if (this.height &lt;&#x3D; 0) &#123;</span><br><span class="line">              clearInterval(this.timer);</span><br><span class="line">              callback &amp;&amp; callback(this);</span><br><span class="line">              return;</span><br><span class="line">            &#125;</span><br><span class="line">            this.height &#x3D; this.height - this.step &lt; 0 ? 0 : this.height - this.step;</span><br><span class="line">          &#125;, this.timeOuttimeOut);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      class Slide &#123;</span><br><span class="line">        constructor(el) &#123;</span><br><span class="line">          this.el &#x3D; document.querySelector(el);</span><br><span class="line">          this.links &#x3D; this.el.querySelectorAll(&quot;dt&quot;);</span><br><span class="line">          this.panels &#x3D; [...this.el.querySelectorAll(&quot;dd&quot;)].map(</span><br><span class="line">            (v) &#x3D;&gt; new Panel(v)</span><br><span class="line">          );</span><br><span class="line">          this.init();</span><br><span class="line">          this.buildEvent();</span><br><span class="line">        &#125;</span><br><span class="line">        init() &#123;</span><br><span class="line">          Panel.hidAll(this.panels, 0);</span><br><span class="line">          this.panels[0].action();</span><br><span class="line">        &#125;</span><br><span class="line">        buildEvent() &#123;</span><br><span class="line">          this.links.forEach((link, index) &#x3D;&gt; &#123;</span><br><span class="line">            link.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">              let test &#x3D; Panel.hidAll(this.panels, index);</span><br><span class="line">              this.panels[index].action();</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      class Panel extends Animation &#123;</span><br><span class="line">        static num &#x3D; 0;</span><br><span class="line">        constructor(el) &#123;</span><br><span class="line">          super(el);</span><br><span class="line">          this.el &#x3D; el;</span><br><span class="line">        &#125;</span><br><span class="line">        action() &#123;</span><br><span class="line">          this.show();</span><br><span class="line">        &#125;</span><br><span class="line">        static hidAll(panels, index) &#123;</span><br><span class="line">          panels.forEach((v, i) &#x3D;&gt; &#123;</span><br><span class="line">            if (index !&#x3D; i) &#123;</span><br><span class="line">              v.hide();</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">    new Slide(&quot;.slide&quot;);</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的版本：每次点击不同的item，会展示当前的item，收缩其它item。在动画结束前可以操作其它item。</p>
+<p>下面的版本：动画结束前操作其它item无效果。</p>
+<ul>
+<li>定义一个静态属性，用于记录收缩选项的个数</li>
+<li>如果当前收缩选项的个数大于0，即还有选项没有收缩完毕，则不执行对应的动画。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">  class Animation &#123;</span><br><span class="line">    constructor(el) &#123;</span><br><span class="line">      this.el &#x3D; el;</span><br><span class="line">      this.timeOut &#x3D; 6;</span><br><span class="line">      this.step &#x3D; 3;</span><br><span class="line">      this.isShow &#x3D; false;</span><br><span class="line">      this.defaultHeight &#x3D; this.height;</span><br><span class="line">      this.timer &#x3D; undefined;</span><br><span class="line">    &#125;</span><br><span class="line">    get height() &#123;</span><br><span class="line">      return parseFloat(window.getComputedStyle(this.el).height);</span><br><span class="line">    &#125;</span><br><span class="line">    set height(num) &#123;</span><br><span class="line">      this.el.style.height &#x3D; num + &quot;px&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    show(callback) &#123;</span><br><span class="line">      this.isShow &#x3D; true;</span><br><span class="line">      clearInterval(this.timer);</span><br><span class="line">      this.timer &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line">        if (this.height &gt;&#x3D; this.defaultHeight) &#123;</span><br><span class="line">          clearInterval(this.timer);</span><br><span class="line">          callback &amp;&amp; callback(this);</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.height &#x3D; this.height + this.step &gt;&#x3D; this.defaultHeight</span><br><span class="line">            ? this.defaultHeight</span><br><span class="line">            : this.height + this.step;</span><br><span class="line">      &#125;, this.timeOuttimeOut);</span><br><span class="line">    &#125;</span><br><span class="line">    hide(callback) &#123;</span><br><span class="line">      this.isShow &#x3D; false;</span><br><span class="line">      clearInterval(this.timer);</span><br><span class="line">      this.timer &#x3D; setInterval(() &#x3D;&gt; &#123;</span><br><span class="line">        if (this.height &lt;&#x3D; 0) &#123;</span><br><span class="line">          clearInterval(this.timer);</span><br><span class="line">          callback &amp;&amp; callback(this);</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.height &#x3D; this.height - this.step &lt; 0 ? 0 : this.height - this.step;</span><br><span class="line">      &#125;, this.timeOuttimeOut);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  class Slide &#123;</span><br><span class="line">    constructor(el) &#123;</span><br><span class="line">      this.el &#x3D; document.querySelector(el);</span><br><span class="line">      this.links &#x3D; this.el.querySelectorAll(&quot;dt&quot;);</span><br><span class="line">      this.panels &#x3D; [...this.el.querySelectorAll(&quot;dd&quot;)].map(</span><br><span class="line">        (v) &#x3D;&gt; new Panel(v)</span><br><span class="line">      );</span><br><span class="line">      this.init();</span><br><span class="line">      this.buildEvent();</span><br><span class="line">    &#125;</span><br><span class="line">    init() &#123;</span><br><span class="line">      Panel.hidAll(Panel.others(this.panels, 0), () &#x3D;&gt; &#123;</span><br><span class="line">        this.panels[0].action();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    buildEvent() &#123;</span><br><span class="line">      this.links.forEach((link, index) &#x3D;&gt; &#123;</span><br><span class="line">        link.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;</span><br><span class="line">          Panel.hidAll(Panel.others(this.panels, index), () &#x3D;&gt; &#123;</span><br><span class="line">            this.panels[index].action();</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  class Panel extends Animation &#123;</span><br><span class="line">    static num &#x3D; 0;</span><br><span class="line">    constructor(el) &#123;</span><br><span class="line">      super(el);</span><br><span class="line">      this.el &#x3D; el;</span><br><span class="line">    &#125;</span><br><span class="line">    action() &#123;</span><br><span class="line">       this.show();</span><br><span class="line">    &#125;</span><br><span class="line">    static hidAll(others, callback) &#123;</span><br><span class="line">      if (Panel.num &gt; 0) return false;</span><br><span class="line">      others.forEach((v, i) &#x3D;&gt; &#123;</span><br><span class="line">        ++Panel.num;</span><br><span class="line">        v.hide(() &#x3D;&gt; Panel.num--);	&#x2F;&#x2F;当panel的动画执行完毕后,进行--</span><br><span class="line">      &#125;);</span><br><span class="line">      callback &amp;&amp; callback();</span><br><span class="line">    &#125;</span><br><span class="line">    static others(panels, index) &#123;</span><br><span class="line">      return panels.filter((v, i) &#x3D;&gt; i !&#x3D; index);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line">new Slide(&quot;.slide&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF/" rel="prev" title="原型与继承">
+      <i class="fa fa-chevron-left"></i> 原型与继承
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83/" rel="next" title="模块规范">
+      模块规范 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">声明定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">原理分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">属性定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%B7%AE%E5%BC%82"><span class="nav-number">1.1.5.</span> <span class="nav-text">函数差异</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.6.</span> <span class="nav-text">严格模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%AE%BF%E9%97%AE"><span class="nav-number">1.2.</span> <span class="nav-text">静态访问</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">静态属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">静态方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">访问器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.3.1.</span> <span class="nav-text">语法介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#public"><span class="nav-number">1.4.1.</span> <span class="nav-text">public</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#protected"><span class="nav-number">1.4.2.</span> <span class="nav-text">protected</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">命名保护</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Symbol"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Symbol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WeakMap"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">WeakMap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#private"><span class="nav-number">1.4.3.</span> <span class="nav-text">private</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E8%A7%A3%E7%BB%A7%E6%89%BF"><span class="nav-number">1.5.</span> <span class="nav-text">详解继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E7%BB%A7%E6%89%BF"><span class="nav-number">1.5.1.</span> <span class="nav-text">属性继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">继承原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E7%BB%A7%E6%89%BF"><span class="nav-number">1.5.3.</span> <span class="nav-text">方法继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super"><span class="nav-number">1.5.4.</span> <span class="nav-text">super</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">1.5.5.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%B6%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.6.</span> <span class="nav-text">父类方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%A6%86%E7%9B%96"><span class="nav-number">1.5.7.</span> <span class="nav-text">方法覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%BB%A7%E6%89%BF"><span class="nav-number">1.5.8.</span> <span class="nav-text">静态继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A3%80%E6%B5%8B"><span class="nav-number">1.5.9.</span> <span class="nav-text">原型检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#instanceof"><span class="nav-number">1.5.9.1.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#isPrototypeOf-NaN"><span class="nav-number">1.5.9.2.</span> <span class="nav-text">isPrototypeOf</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%86%85%E7%BD%AE%E7%B1%BB"><span class="nav-number">1.5.10.</span> <span class="nav-text">继承内置类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixin"><span class="nav-number">1.5.11.</span> <span class="nav-text">mixin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">1.5.12.</span> <span class="nav-text">实例操作</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿顺特烦恼"
+      src="/images/headPortrait.jpg">
+  <p class="site-author-name" itemprop="name">阿顺特烦恼</p>
+  <div class="site-description" itemprop="description">阿顺特烦恼,希望大家没有烦恼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/astfn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;astfn" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/ashuntefannao" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;ashuntefannao" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-adn"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿顺特烦恼</span>
+</div>
+  <div class="powered-by">
+     <!-- 外部引入 访客计数器-->
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span><br/>
+      
+      <strong style="color:#ccc">ASHUNTEFANNAO</strong><br/>
+      <span style="color:#ccc;font-size:13px">博客文章版权归作者 阿顺特烦恼 所有</span><br/>
+      <span style="color:#ccc;font-size:13px">欢迎转载 但未经作者同意 必须保留此段声明</span><br/>
+  </div>
+  
+  <!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  -->
+
+
+
+<!-- 外部脚本 -->
+
+<!--以下部分脚本依赖jquery-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--浏览器搞笑标题 //实测会影响图标-->
+	<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/hititle.js"></script>-->
+
+	<!-- 🌸飘落 -->
+		<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/sakura.js"></script>-->
+
+	<!-- 雪花飘落 -->
+	  <!-- <script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js"></script> -->
+
+	<!-- // 文字 -->
+    <!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>-->
+
+<!-- // 烟花 -->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script async type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js"></script>
+
+<!-- // 星星跟随坠落 -->
+	<script async src="https://cdn.jsdelivr.net/gh/cungudafa/cdn@2.1.2/js/cursor.js"></script>
+
+<!-- // 连线 -->
+	<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!-- 样式二（飘动的彩带） -->
+	<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/piao.js" type="text/javascript"></script>
+
+<!--背景切换-->
+  <!--<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
