@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/Ashun.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/Ashun.ico">
+  <link rel="mask-icon" href="/images/favicons/Ashun.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#34495e","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基本类型 JavaScript中的基本数据类型有：boolean、null、undefined、number、string、symbol、BigInt。 引用类型有：Object、Array、Function、Match、Date、RegExp、Set、WeakSet、Map、WeakMap… 该标题所示基本类型意为 新手初始学习 的一些数据类型。  一、 类型检测1.1 typeoftypeof">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本类型">
+<meta property="og:url" content="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="AshunBlog">
+<meta property="og:description" content="基本类型 JavaScript中的基本数据类型有：boolean、null、undefined、number、string、symbol、BigInt。 引用类型有：Object、Array、Function、Match、Date、RegExp、Set、WeakSet、Map、WeakMap… 该标题所示基本类型意为 新手初始学习 的一些数据类型。  一、 类型检测1.1 typeoftypeof">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-16T05:25:22.000Z">
+<meta property="article:modified_time" content="2021-05-16T07:10:40.047Z">
+<meta property="article:author" content="阿顺特烦恼">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基本类型 | AshunBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AshunBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">好好学习,天天Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/astfn" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/headPortrait.jpg">
+      <meta itemprop="name" content="阿顺特烦恼">
+      <meta itemprop="description" content="阿顺特烦恼,希望大家没有烦恼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AshunBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基本类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-16 13:25:22 / 修改时间：15:10:40" itemprop="dateCreated datePublished" datetime="2021-05-16T13:25:22+08:00">2021-05-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">Web前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">JavaScript大总结</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><blockquote>
+<p>JavaScript中的基本数据类型有：boolean、null、undefined、number、string、symbol、BigInt。</p>
+<p>引用类型有：Object、Array、Function、Match、Date、RegExp、Set、WeakSet、Map、WeakMap…</p>
+<p>该标题所示基本类型意为 <strong>新手初始学习</strong> 的一些数据类型。</p>
+</blockquote>
+<h3 id="一、-类型检测"><a href="#一、-类型检测" class="headerlink" title="一、 类型检测"></a>一、 类型检测</h3><h4 id="1-1-typeof"><a href="#1-1-typeof" class="headerlink" title="1.1 typeof"></a>1.1 typeof</h4><p><code>typeof</code> 能够正确的返回以下数据类型（在不使用构造函数实例化的前提下，否则返回Object）</p>
+<ul>
+<li><p>Number、String、undefined、Object、Boolean、function</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">console.log(</span><br><span class="line">        typeof 1,									&#x2F;&#x2F;number </span><br><span class="line">        typeof &quot;&quot;,								&#x2F;&#x2F;string </span><br><span class="line">        typeof undefined,					&#x2F;&#x2F;undefined </span><br><span class="line">        typeof &#123;&#125;,								&#x2F;&#x2F;object  </span><br><span class="line">        typeof false,							&#x2F;&#x2F;boolean </span><br><span class="line">        typeof function () &#123;&#125;			&#x2F;&#x2F;function</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>不能正确判断的情况：</p>
+<p>—使用构造函数实例化为对象，则返回Object。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let as &#x3D; &quot;Ashun&quot;;</span><br><span class="line">let str &#x3D; new String(&quot;Ashun&quot;); </span><br><span class="line">console.log(typeof as, typeof str); &#x2F;&#x2F;string object</span><br></pre></td></tr></table></figure>
+
+<p>—<code>typeof []</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof []);  &#x2F;&#x2F;object</span><br></pre></td></tr></table></figure>
+
+<p>—关于<code>typeof null===&#39;object&#39;</code></p>
+<p>首先要说明的是，null**不是!**对象，但为什么返回结果为<code>object</code>呢？</p>
+<p>解释: 这是JS的历史遗留bug，在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象然而 null 表示为全零，所以将它错误的判断为 object 。</p>
+<blockquote>
+<p>—如果要正确判断能够使用构造函数实例化的以上数据类型、或Array。可以使用<code>instanceof</code> 👇</p>
+</blockquote>
+<hr>
+<h4 id="1-2-instanceof"><a href="#1-2-instanceof" class="headerlink" title="1.2 instanceof"></a>1.2 instanceof</h4><p>​    <strong><code>instanceof</code></strong> 运算符用于检测构造函数的 <code>prototype</code> 属性(原型对象)是否出现在某个实例对象的原型链上。也可以理解为：判断是否为某个对象的实例，<code>typeof</code>不能区分Array，但<code>instanceof</code>可以。instanceof的返回结果为Boolean。</p>
+<p>—判断Array</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log([] instanceof Array);		&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<p>—检测typeof能够正确返回的数据类型（在不 手动实例化 的情况下）</p>
+<p>​    只有obj、function能够返回正确的结果，其余返回false的数据类型如果通过构造函数实例化，则能够正确判断。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;&quot; instanceof String);									&#x2F;&#x2F;false</span><br><span class="line">console.log(1 instanceof Number);										&#x2F;&#x2F;false</span><br><span class="line">console.log(true instanceof Boolean);								&#x2F;&#x2F;false</span><br><span class="line">console.log(function () &#123;&#125; instanceof Function);		&#x2F;&#x2F;true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);									&#x2F;&#x2F;true</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这里undefined不能够判断，因为其没有构造函数。</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="1-3-值类型与对象"><a href="#1-3-值类型与对象" class="headerlink" title="1.3 值类型与对象"></a>1.3 值类型与对象</h4><p>下面是使用字面量与对象方法创建字符串，返回的是不同类型。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let as = &quot;astfn&quot;;</span><br><span class="line">let ext = new String(&quot;.github.io&quot;); </span><br><span class="line">console.log(typeof as, typeof ext); //string object</span><br></pre></td></tr></table></figure>
+
+<p>只有对象才能够调用属性和方法，但在<code>JS</code>中也可以使用值类型调用方法，因为它会在执行时将值类型转为对象。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[].concat([&quot;ashun&quot;]);</span><br><span class="line">&quot;Ashun&quot;.length</span><br><span class="line">(1.266).toFixed(2)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="二、String"><a href="#二、String" class="headerlink" title="二、String"></a>二、String</h3><h4 id="2-1-声明定义"><a href="#2-1-声明定义" class="headerlink" title="2.1 声明定义"></a>2.1 声明定义</h4><ul>
+<li><p>构造函数声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str&#x3D;new String(&quot;ashun&quot;);</span><br><span class="line">console.log(str.length);</span><br></pre></td></tr></table></figure></li>
+<li><p>字面量声明</p>
+<p>单引号’’、双引号””、模板字面量``。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str&#x3D;&quot;ashun&quot;;</span><br><span class="line">let str1&#x3D;&#39;ashun&#39;;</span><br><span class="line">let str2&#x3D;&#96;ashun&#96;; </span><br><span class="line">console.log(str.length);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h4 id="2-2-转义符号"><a href="#2-2-转义符号" class="headerlink" title="2.2 转义符号"></a>2.2 转义符号</h4><p>有些字符在js中具有特殊含义，需要进行转义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let site&#x3D;&quot;site:\&quot;ashuntefannao.com\&quot;&quot;;</span><br><span class="line">console.log(site)</span><br><span class="line">&#x2F;&#x2F;site:&quot;ashuntefannao.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>常用转义符号列表如下</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\t</td>
+<td>制表符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\</td>
+<td>斜杠符号</td>
+</tr>
+<tr>
+<td>\‘</td>
+<td>单引号</td>
+</tr>
+<tr>
+<td>\“</td>
+<td>双引号</td>
+</tr>
+</tbody></table>
+<p>—在使用RegExp时，有很多符号都具有特殊含义，如果需要匹配某些字符，也需要进行转义，在<code>RegExp</code>总结中会详解。</p>
+<hr>
+<h4 id="2-3-连接运算符"><a href="#2-3-连接运算符" class="headerlink" title="2.3 连接运算符"></a>2.3 连接运算符</h4><p>使用 <code>+</code> 可以连接多个内容组合成字符串，经常用于组合输出内容使用。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let name = &quot;ashun&quot;;</span><br><span class="line">age = 18;</span><br><span class="line">console.log(name + &#x27;今年&#x27; + age + &#x27;岁了&#x27;);</span><br><span class="line">name+=&quot;tefannao&quot;;</span><br><span class="line">console.log(name);</span><br></pre></td></tr></table></figure>
+
+<p>—使用String的内置方法<code>str.concat(str1,…strN)</code>也能够完成字符串的合并操作。该方法<code>不会改变</code>原字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &quot;ashun&quot;;</span><br><span class="line">console.log(str.concat(&quot;Ashun&quot;, &quot;Tefannao&quot;));&#x2F;&#x2F;ashunAshunTefannao</span><br><span class="line">console.log(str);&#x2F;&#x2F;ashun</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-4-模板字面量"><a href="#2-4-模板字面量" class="headerlink" title="2.4 模板字面量"></a>2.4 模板字面量</h4><p>（模板字面量`` ）可以声明字符串变量，也可拼接String，相比传统方式使用 + 来链接String，字面量更加的灵活和方便。</p>
+<p>优点：</p>
+<ul>
+<li>可以包含变量和表达式<code>$&#123;&#125;</code></li>
+<li>可在模板字面量中换行</li>
+<li>可以嵌套使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let name&#x3D;&quot;ashun&quot;;</span><br><span class="line">function getAge()&#123;return 18&#125;;</span><br><span class="line">console.log(&#96;$&#123;name&#125;今年$&#123;getAge()&#125;岁了&#96;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#96;Ashun</span><br><span class="line">Te</span><br><span class="line">FanNao</span><br><span class="line">&#96;);</span><br><span class="line">&#x2F;*</span><br><span class="line">Ashun</span><br><span class="line">Te</span><br><span class="line">FanNao</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let arr&#x3D;[&#123;title:&quot;ashun&quot;&#125;,&#123;title:&quot;Ashun&quot;&#125;,&#123;title:&quot;ashuntefannao.com&quot;&#125;,];</span><br><span class="line"></span><br><span class="line">function template(arr)&#123;</span><br><span class="line">return &#96;&lt;ul&gt;$&#123;arr.map(v&#x3D;&gt;&#96;&lt;li&gt;$&#123;v.title&#125;&lt;&#x2F;li&gt;&#96;).join(&quot;&quot;)&#125;&lt;&#x2F;ul&gt;&#96;;</span><br><span class="line">&#125;</span><br><span class="line">document.write(template(arr))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="2-5-标签模板"><a href="#2-5-标签模板" class="headerlink" title="2.5 标签模板"></a>2.5 标签模板</h4><p>功能：提取出<code>普通字符串</code>与<code>变量</code>，交由<code>标签函数</code>处理</p>
+<p>使用步骤:</p>
+<ol>
+<li><p>定义处理标签模板的函数</p>
+</li>
+<li><p>调用标签模板函数，处理字符串</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">functionName &#96;StringContent&#96;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let obj=&#123;name:&quot;阿顺&quot;,age:18&#125;;</span><br><span class="line">function tagTemplate(str,...argus)&#123;</span><br><span class="line">	console.log(str);		//[&quot;info：&quot;, &quot;今年&quot;, &quot;岁了&quot;]</span><br><span class="line">	console.log(argus);		//[&quot;阿顺&quot;, 18]</span><br><span class="line">&#125;</span><br><span class="line">tagTemplate `info：$&#123;obj.name&#125;今年$&#123;obj.age&#125;岁了`;</span><br></pre></td></tr></table></figure>
+
+<p>—若String开头就使用了变量，那么获取普通字符串Arr的第一个元素为空字符串<code>&quot;&quot;</code></p>
+<p>—同理，若String的结尾使用了变量，获取普通字符串Arr的最后一个元素也为<code>&quot;&quot;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let name&#x3D;&quot;ashun&quot;;</span><br><span class="line">tag &#96;$&#123;name&#125;18岁了&#96;;</span><br><span class="line">function tag(str,...argu)&#123;</span><br><span class="line">	console.log(str);	&#x2F;&#x2F;[&quot;&quot;, &quot;18岁了&quot;]</span><br><span class="line">	console.log(argu)	&#x2F;&#x2F;[&quot;ashun&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="2-6-String属性"><a href="#2-6-String属性" class="headerlink" title="2.6 String属性"></a>2.6 String属性</h4><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">length</td>
+<td align="left">字符串的长度</td>
+</tr>
+<tr>
+<td align="left">constructor</td>
+<td align="left">访问其构造函数</td>
+</tr>
+<tr>
+<td align="left">prototype</td>
+<td align="left">通过其可扩展String的属性和方法。</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="2-7-String方法"><a href="#2-7-String方法" class="headerlink" title="2.7 String方法"></a>2.7 String方法</h4><h5 id="2-7-1-大小写转换"><a href="#2-7-1-大小写转换" class="headerlink" title="2.7.1 大小写转换"></a>2.7.1 大小写转换</h5><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">toLowerCase()</td>
+<td align="left">把字符串转换为小写。</td>
+</tr>
+<tr>
+<td align="left">toUpperCase()</td>
+<td align="left">把字符串转换为大写。</td>
+</tr>
+</tbody></table>
+<h5 id="2-7-2-移除空白"><a href="#2-7-2-移除空白" class="headerlink" title="2.7.2 移除空白"></a>2.7.2 移除空白</h5><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">trim()</td>
+<td align="left">移除字符串左右两侧的空白</td>
+</tr>
+<tr>
+<td align="left">trimLeft()</td>
+<td align="left">移除字符串左侧的空白</td>
+</tr>
+<tr>
+<td align="left">trimRight()</td>
+<td align="left">移除字符串右侧的空白</td>
+</tr>
+</tbody></table>
+<h5 id="2-7-3-获取单字符"><a href="#2-7-3-获取单字符" class="headerlink" title="2.7.3 获取单字符"></a>2.7.3 获取单字符</h5><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">charAt(index)</td>
+<td align="left">返回在指定位置的字符。</td>
+</tr>
+<tr>
+<td align="left">charCodeAt(index)</td>
+<td align="left">返回在指定位置字符的 Unicode 编码。</td>
+</tr>
+</tbody></table>
+<p>—使用索引形式，获取单字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;[2]);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-7-4-截取字符串"><a href="#2-7-4-截取字符串" class="headerlink" title="2.7.4 截取字符串"></a>2.7.4 截取字符串</h5><p>slice、substr、substring这些操作都不会改变原字符串，而是返回一个新的string。</p>
+<h6 id="slice-n1-n2"><a href="#slice-n1-n2" class="headerlink" title="slice(n1,n2)"></a>slice(n1,n2)</h6><p>参数1:起始位置，参数2:结束位置    相当于<code>区间左闭右开[n1,n2)</code>，参数可为负数，意为自后向前的字符。</p>
+<p>关于参数：</p>
+<ul>
+<li><p>没有传参时，截取整个sring</p>
+</li>
+<li><p>只有一个参数</p>
+<ul>
+<li>正数：从n1截取到尾部。</li>
+<li>负数：自后向前截取n1个字符。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;.slice(-4));			&#x2F;&#x2F;shun</span><br><span class="line"></span><br><span class="line">console.log(&quot;Ashun&quot;.slice(1));			&#x2F;&#x2F;shun</span><br><span class="line"></span><br><span class="line">console.log(&quot;Ashun&quot;.slice(1, 2));		&#x2F;&#x2F;s</span><br><span class="line"></span><br><span class="line">console.log(&quot;Ashun&quot;.slice(1, -1));	&#x2F;&#x2F;shu</span><br><span class="line"></span><br><span class="line">console.log(&quot;Ashun&quot;.slice(-1, -5));	&#x2F;&#x2F;shun</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;截取的规则必须是自前向后，n1&lt;n2</span><br><span class="line">console.log(&quot;Ashun&quot;.slice(-4, -2)); &#x2F;&#x2F;sh</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h6 id="substr-n1-n2"><a href="#substr-n1-n2" class="headerlink" title="substr(n1,n2)"></a>substr(n1,n2)</h6><p>参数1:起始位置，参数2:<code>自前向后截取n2个字符（数量包含起始位置字符）</code>,因此参数2不可为负数。</p>
+<p>关于参数：</p>
+<ul>
+<li><p>没有传参时，截取整个sring</p>
+</li>
+<li><p>只有一个参数（同slice）。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;.substr(1)); 							&#x2F;&#x2F;shun</span><br><span class="line">console.log(&quot;Ashun&quot;.substr(-4)); 							&#x2F;&#x2F;shun</span><br><span class="line">console.log(&quot;Ashuntefan&quot;.substr(1, 3));				&#x2F;&#x2F;shu</span><br><span class="line">console.log(&quot;Ashuntefan&quot;.substr(-3, 2));			&#x2F;&#x2F;fa</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h6 id="substring-n1-n2"><a href="#substring-n1-n2" class="headerlink" title="substring(n1,n2)"></a>substring(n1,n2)</h6><p>关于参数：对比slice。</p>
+<ul>
+<li>相同点<ul>
+<li>没有传参时，截取整个sring</li>
+<li>参数1、2的意义与slice相同<code>区间左闭右开[n1,n2)</code>。</li>
+</ul>
+</li>
+<li>不同点<ul>
+<li>参数不能为负数，否则会视为<code>0</code></li>
+<li>自动将两个参数中较小的参数作为起始位置。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;.substring(1));					&#x2F;&#x2F;shun</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;二者结果相同</span><br><span class="line">console.log(&quot;Ashun&quot;.substring(1, 5));				&#x2F;&#x2F;shun</span><br><span class="line">console.log(&quot;Ashun&quot;.substring(5, 1));				&#x2F;&#x2F;shun</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;相当于substring(0)</span><br><span class="line">console.log(&quot;Ashun&quot;.substring(-2));					&#x2F;&#x2F;Ashun</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;相当于substring(1,0)&#x3D;&#x3D;&#x3D;substring(0,1)</span><br><span class="line">console.log(&quot;Ashun&quot;.substring(1, -1));			&#x2F;&#x2F;A</span><br><span class="line">console.log(&quot;Ashun&quot;.substring(1, 0));				&#x2F;&#x2F;A</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="2-7-5-检索字符串"><a href="#2-7-5-检索字符串" class="headerlink" title="2.7.5 检索字符串"></a>2.7.5 检索字符串</h5><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">indexOf(str,index)</td>
+<td align="left">返回某个指定的字符串值在字符串中<code>首次出现的索引</code>。匹配失败返回-1。参数2(可选)指定开始查找的位置</td>
+</tr>
+<tr>
+<td align="left">lastIndexOf(str,index)</td>
+<td align="left">自后向前检索字符串，返回结果同indexOf()，参数2(可选)指定开始查找的位置(自后向前)</td>
+</tr>
+<tr>
+<td align="left">includes(str，index)</td>
+<td align="left">是否包含指定的子字符串，参数2(可选)指定开始查找的位置(自后向前)</td>
+</tr>
+<tr>
+<td align="left">match(<code>Regexp</code>)</td>
+<td align="left">查找找到一个或多个正则表达式的匹配。</td>
+</tr>
+<tr>
+<td align="left">search(str/<code>Regexp</code>)</td>
+<td align="left">相对于indexof()可以传入<code>Regexp</code></td>
+</tr>
+<tr>
+<td align="left">startsWith(str,index)</td>
+<td align="left">是否以指定的str开头。index:检索的起始位置。</td>
+</tr>
+<tr>
+<td align="left">endsWith(str,index)</td>
+<td align="left">是否以指定的str结束，index:检索的结束位置。</td>
+</tr>
+</tbody></table>
+<p>—indexOf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun、ashun&quot;.indexOf(&quot;shun&quot;)); 	&#x2F;&#x2F;1</span><br><span class="line">console.log(&quot;Ashun&quot;.indexOf(&quot;as&quot;));						 &#x2F;&#x2F;-1</span><br><span class="line"></span><br><span class="line">let str &#x3D; &quot;ashunashun&quot;;</span><br><span class="line">console.log(str.indexOf(&quot;a&quot;));&#x2F;&#x2F;0</span><br><span class="line">console.log(str.indexOf(&quot;a&quot;, 2));&#x2F;&#x2F;5</span><br></pre></td></tr></table></figure>
+
+<p>—lastIndexOf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun、ashun&quot;.lastIndexOf(&quot;shun&quot;)); 	&#x2F;&#x2F;7</span><br><span class="line">console.log(&quot;Ashun&quot;.lastIndexOf(&quot;as&quot;)); 					&#x2F;&#x2F;-1</span><br><span class="line"></span><br><span class="line">let str &#x3D; &quot;ashunashun&quot;;</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;));&#x2F;&#x2F;5</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;, 3));&#x2F;&#x2F;0</span><br></pre></td></tr></table></figure>
+
+<p>—includes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;.includes(&quot;shun&quot;)); 		&#x2F;&#x2F;true</span><br><span class="line">console.log(&quot;Ashun&quot;.includes(&quot;as&quot;)); 			&#x2F;&#x2F;false</span><br></pre></td></tr></table></figure>
+
+<p>—match</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let reg &#x3D; new RegExp(&quot;shun&quot;, &quot;g&quot;);</span><br><span class="line">console.log(&quot;Ashun、ashun&quot;.match(reg)); 				&#x2F;&#x2F;[&quot;shun&quot;, &quot;shun&quot;]</span><br><span class="line">console.log(&quot;Ashun、ashun&quot;.match(&#x2F;[0-9]&#x2F;)); 		&#x2F;&#x2F;null</span><br></pre></td></tr></table></figure>
+
+<p>—search</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let reg &#x3D; new RegExp(&quot;shun&quot;, &quot;g&quot;);</span><br><span class="line">console.log(&quot;Ashun、shun&quot;.search(reg)); 			&#x2F;&#x2F;1</span><br><span class="line">console.log(&quot;Ashun、shun&quot;.search(&quot;、&quot;)); 		 &#x2F;&#x2F;5</span><br></pre></td></tr></table></figure>
+
+<p>—startsWith</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashuntefannao&quot;.startsWith(&quot;A&quot;));				&#x2F;&#x2F;true</span><br><span class="line">console.log(&quot;Ashuntefannao&quot;.startsWith(&quot;shun&quot;, 1));	&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<p>—endsWith</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashuntefannao&quot;.endsWith(&quot;fannao&quot;)); 		&#x2F;&#x2F;true</span><br><span class="line">console.log(&quot;Ashuntefannao&quot;.endsWith(&quot;shun&quot;, 5)); 	&#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h5 id="2-7-6-替换字符串"><a href="#2-7-6-替换字符串" class="headerlink" title="2.7.6 替换字符串"></a>2.7.6 替换字符串</h5><p><code>replace(matchStr,replaceStr)</code> 方法用于字符串的替换操作</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let site = &quot;Ashuntefannao.com&quot;;</span><br><span class="line">console.log(site.replace(&quot;Ashuntefannao&quot;, &quot;ashun&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>默认只替换一次，如果全局替换需要使用正则（更强大的使用会在正则表达式章节介绍）</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;Ashun、shun&quot;;</span><br><span class="line">console.log(str.replace(/shun/g, &quot;SHUN&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>使用字符串替换来生成关键词链接</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let keys = [&quot;Js&quot;, &quot;css&quot;];</span><br><span class="line">let str = &quot;Ashun喜欢Js和css知识&quot;;</span><br><span class="line">	str = keys.reduce((pre, key) =&gt; &#123;</span><br><span class="line">		return pre.replace(key, `&lt;a href=&quot;?key=$&#123;key&#125;&quot;&gt;$&#123;key&#125;&lt;/a&gt;`);</span><br><span class="line">&#125;, str);</span><br><span class="line">document.body.innerHTML = str;</span><br></pre></td></tr></table></figure>
+
+<p>使用正则表达式完成替换</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;Ashun喜欢Js和css知识&quot;;</span><br><span class="line">str = str.replace(/(css|Js)/g, `&lt;a href=&quot;?key=$&amp;&quot;&gt;$&amp;&lt;/a&gt;`);</span><br><span class="line">document.body.innerHTML = str;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h5 id="2-7-7-重复生成"><a href="#2-7-7-重复生成" class="headerlink" title="2.7.7 重复生成"></a>2.7.7 重复生成</h5><p><code>repeat(num)</code>完成字符串的重复生成</p>
+<p>下例是根据参数重复生成星号</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function repeat(str = &quot;*&quot;, num = 3) &#123;</span><br><span class="line">		return str.repeat(num);</span><br><span class="line">&#125;</span><br><span class="line">console.log(repeat());</span><br><span class="line">console.log(repeat(&quot;8 &quot;, 8));</span><br></pre></td></tr></table></figure>
+
+<p>下面是模糊电话号码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let phone = &quot;89452176335&quot;;</span><br><span class="line">console.log(phone.slice(0, 3).concat(&quot;*&quot;.repeat(5)).concat(phone.slice(-3)));</span><br><span class="line">//894*****335</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="2-7-8-类型转换"><a href="#2-7-8-类型转换" class="headerlink" title="2.7.8 类型转换"></a>2.7.8 类型转换</h5><h6 id="String-gt-Array"><a href="#String-gt-Array" class="headerlink" title="String-&gt;Array"></a>String-&gt;Array</h6><p>使用<code>split(str)</code>方法：以参数str分割String为Array。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;Ashun&quot;.split(&quot;&quot;));								&#x2F;&#x2F;[&quot;A&quot;, &quot;s&quot;, &quot;h&quot;, &quot;u&quot;, &quot;n&quot;]</span><br><span class="line">console.log(&quot;ashun,Ashun&quot;.split(&quot;,&quot;));				&#x2F;&#x2F;[&quot;ashun&quot;,&quot;Ashun&quot;]</span><br><span class="line">console.log(&quot;Ashuntefannao&quot;.split(&quot;te&quot;));			&#x2F;&#x2F;[&quot;Ashun&quot;,&quot;fannao&quot;]</span><br></pre></td></tr></table></figure>
+
+<h6 id="Number-gt-String"><a href="#Number-gt-String" class="headerlink" title="Number-&gt;String"></a>Number-&gt;String</h6><ul>
+<li>+””</li>
+<li>String(Number)</li>
+<li>num.toString()</li>
+</ul>
+<h6 id="Array-gt-String"><a href="#Array-gt-String" class="headerlink" title="Array-&gt;String"></a>Array-&gt;String</h6><ul>
+<li><p>arr.join(str)</p>
+<p><code>join(str)</code>方法：以参数str合并Array的每个元素变为String。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log([&quot;2020&quot;, &quot;3&quot;, &quot;13&quot;].join(&quot;-&quot;));			&#x2F;&#x2F;2020-3-13</span><br></pre></td></tr></table></figure></li>
+<li><p>arr.toString()</p>
+</li>
+</ul>
+<p>js中大部分类型都是对象，可以使用类方法 <code>toString</code>转化为字符串</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let as = 99;</span><br><span class="line">console.log(typeof as.toString()); //string</span><br><span class="line"></span><br><span class="line">let arr = [&#x27;Ashun&#x27;, &#x27;阿顺&#x27;];</span><br><span class="line">console.log(typeof arr.toString()); //string</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="三、Boolean"><a href="#三、Boolean" class="headerlink" title="三、Boolean"></a>三、Boolean</h3><h4 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h4><p>基本上所有类型都可以隐式转换为 Boolean类型。</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">true</th>
+<th>false</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">String</td>
+<td align="left">非空字符串</td>
+<td>空字符串</td>
+</tr>
+<tr>
+<td align="left">Number</td>
+<td align="left">非0的数值</td>
+<td>0 、NaN</td>
+</tr>
+<tr>
+<td align="left">Array</td>
+<td align="left">不与Boolean比较时</td>
+<td>参与比较的空数组</td>
+</tr>
+<tr>
+<td align="left">Object</td>
+<td align="left">不与Boolean比较时</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">undefined</td>
+<td align="left">无</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td align="left">null</td>
+<td align="left">无</td>
+<td>null</td>
+</tr>
+<tr>
+<td align="left">NaN</td>
+<td align="left">无</td>
+<td>NaN</td>
+</tr>
+</tbody></table>
+<p>当与boolean类型比较时，会将两边类型统一为数字1或0。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(3 == true); 	//false</span><br><span class="line">console.log(0 == false); 	//true</span><br></pre></td></tr></table></figure>
+
+<p>下面是一个典型的例子，字符串在与Boolean比较时，两边都为转换为数值类型后再进行比较。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(Boolean(&quot;ashun&quot;)); //true</span><br><span class="line">console.log(Number(&quot;ashun&quot;)); //NaN</span><br><span class="line">console.log(&quot;ashun&quot; == true); //false</span><br><span class="line">console.log(&quot;1&quot; == true); //true</span><br></pre></td></tr></table></figure>
+
+<p>数组的表现与字符串原理一样，会先转换为数值</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(Number([])); //0</span><br><span class="line">console.log(Number([3])); //3</span><br><span class="line">console.log(Number([1, 2, 3])); //NaN</span><br><span class="line">console.log([] == false); //true</span><br><span class="line">console.log([1] == true); //true</span><br><span class="line">console.log([1, 2, 3] == true); //false</span><br></pre></td></tr></table></figure>
+
+<p>—引用类型<code>Object、Array</code>不与Boolean比较时，值为<code>真</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if ([]) console.log(&quot;true&quot;);</span><br><span class="line">if (&#123;&#125;) console.log(&quot;true&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h4><p>使用 <code>!</code>或<code>!!</code> 转换布尔类型</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let as = &#x27;&#x27;;</span><br><span class="line">console.log(!!as); //false</span><br><span class="line">as = 0;</span><br><span class="line">console.log(!!as); //false</span><br><span class="line">as = null;</span><br><span class="line">console.log(!!as); //false</span><br><span class="line">as = new Date(&quot;2021-3-13 16:42&quot;);</span><br><span class="line">console.log(!!as); //true</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Boolean</code> 函数可以显式转换为布尔类型</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let as = &#x27;&#x27;;</span><br><span class="line">console.log(Boolean(as)); //false</span><br><span class="line">as = 0;</span><br><span class="line">console.log(Boolean(as)); //false</span><br><span class="line">as = null;</span><br><span class="line">console.log(Boolean(as)); //false</span><br><span class="line">as = new Date(&quot;2021-3-13 16:42&quot;);</span><br><span class="line">console.log(Boolean(as)); //true</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h4><p>下面使用Boolean类型判断用户的输入，并给出不同的反馈。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">while (true) &#123;</span><br><span class="line">  let test = prompt(&quot;请输入Ashuntefannao成立年份&quot;).trim();</span><br><span class="line">  if (!test) continue;</span><br><span class="line">  alert(test == 2020 ? &quot;回答正确&quot; : &quot;答案错误！假粉一个&quot;);</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="四、Number"><a href="#四、Number" class="headerlink" title="四、Number"></a>四、Number</h3><h4 id="声明定义"><a href="#声明定义" class="headerlink" title="声明定义"></a>声明定义</h4><p>使用对象方式声明</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let as = new Number(3);</span><br><span class="line">console.log(as+3); //6</span><br></pre></td></tr></table></figure>
+
+<p>Number用于表示整数和浮点数，数字是 <code>Number</code>实例化的对象，可以使用对象提供的丰富方法。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let num = 99;</span><br><span class="line">console.log(typeof num);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="基本函数"><a href="#基本函数" class="headerlink" title="基本函数"></a>基本函数</h4><p><code>Number.isInteger(num)</code>：判断是否为整数</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Number.isInteger(1.2));	//false</span><br></pre></td></tr></table></figure>
+
+<p><code>Number.isNaN(message)</code>：判断参数是否为无效数值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let as &#x3D; &quot;ashun&quot; &#x2F; 0;</span><br><span class="line">console.log(Number.isNaN(as)); &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+<p><code>num.toFixed(n)</code>：四舍五入保留n位小数。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log((16.556).toFixed(2)); // 16.56</span><br></pre></td></tr></table></figure>
+
+<p><code>num.toString()</code>：转为String，js中几乎所有类型都具有该方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof (2).toString())</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>表示无效的数值，下例计算将产生NaN结果。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(Number(&quot;ashun&quot;)); //NaN</span><br><span class="line"></span><br><span class="line">console.log(2 / &#x27;ashun&#x27;); //NaN</span><br></pre></td></tr></table></figure>
+
+<p>NaN不能使用 <code>==</code> 比较，使用以下代码来判断结果是否正确</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let res = 2 / &#x27;ashun&#x27;;</span><br><span class="line">if (Number.isNaN(res)) &#123;</span><br><span class="line">	console.log(&#x27;Error&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">console.log(res == NaN);	//false</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>Object.is</code> 方法判断两个值是否完全相同</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let res = 2 / &#x27;ashun&#x27;;</span><br><span class="line">console.log(Object.is(res, NaN)); //true</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p><strong>other-&gt;Number</strong></p>
+<p>使用Number函数基本上可以转换所有类型</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">console.log(Number(&#x27;Ashun&#x27;)); //NaN</span><br><span class="line">console.log(Number(true));	//1</span><br><span class="line">console.log(Number(false));	//0</span><br><span class="line">console.log(Number(&#x27;9&#x27;));	//9</span><br><span class="line">console.log(Number([]));	//0</span><br><span class="line">console.log(Number([5]));	//5</span><br><span class="line">console.log(Number([5, 2]));	//NaN</span><br><span class="line">console.log(Number(&#123;&#125;));	//NaN</span><br></pre></td></tr></table></figure>
+
+<p><strong>parseInt</strong></p>
+<p>提取字符串头部去除空白后的数字转为整数。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(parseInt(&#x27;  99houdunren&#x27;));	//99</span><br><span class="line">console.log(parseInt(&#x27;18.55&#x27;));	//18</span><br></pre></td></tr></table></figure>
+
+<p><strong>parseFloat</strong></p>
+<p>提取字符串头部去除空白后的数字转为浮点数。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(parseFloat(&#x27;  99houdunren&#x27;));	//99</span><br><span class="line">console.log(parseFloat(&#x27;  18.55&#x27;));	//18.55</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="浮点精度"><a href="#浮点精度" class="headerlink" title="浮点精度"></a>浮点精度</h4><p>大部分编程语言在浮点数计算时都会有精度误差问题，下面来看JS中的表现形式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let num = 0.1 + 0.2</span><br><span class="line">console.log(num)// 结果：0.30000000000000004</span><br></pre></td></tr></table></figure>
+
+<p>这是因为计算机以二进制处理数值类型，上面的0.1与0.2转为二进制后是无穷的</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log((0.1).toString(2)) //0.0001100110011001100110011001100110011001100110011001101</span><br><span class="line">console.log((0.2).toString(2)) //0.001100110011001100110011001100110011001100110011001101</span><br></pre></td></tr></table></figure>
+
+<p><strong>处理方式</strong></p>
+<p>一种方式使用toFixed 方法进行小数截取</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log((0.1 + 0.2).toFixed(2)) //0.3</span><br><span class="line"></span><br><span class="line">console.log(1.0 - 0.9) //0.09999999999999998</span><br><span class="line">console.log((1.0 - 0.9).toFixed(2)) //0.10</span><br></pre></td></tr></table></figure>
+
+<p>将小数转为整数进行计算后，再转为小数也可以解决精度问题</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Number.prototype.add = function (num) &#123;</span><br><span class="line">	//取两个数值中小数位最大的</span><br><span class="line">  let n1 = this.toString().split(&#x27;.&#x27;)[1].length</span><br><span class="line">  let n2 = num.toString().split(&#x27;.&#x27;)[1].length</span><br><span class="line">  </span><br><span class="line">  //得到10的N次幂</span><br><span class="line">  let m = Math.pow(10, Math.max(n1, n2))</span><br><span class="line"></span><br><span class="line">  return (this * m + num * m) / m</span><br><span class="line">&#125;</span><br><span class="line">console.log((0.1).add(0.2))</span><br></pre></td></tr></table></figure>
+
+<p><strong>推荐做法</strong></p>
+<p>市面上已经存在很多针对数学计算的库 <a target="_blank" rel="noopener" href="https://mathjs.org/examples/browser/basic_usage.html.html">mathjs</a>、<a target="_blank" rel="noopener" href="https://github.com/MikeMcl/decimal.js">decimal.js</a>等，我们就不需要自己构建了。下面来演示使用 <a target="_blank" rel="noopener" href="https://github.com/MikeMcl/decimal.js">decimal.js </a>进行浮点计算。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/decimal.js/10.2.0/decimal.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	console.log(Decimal.add(0.1, 0.2).valueOf())</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="五、Math"><a href="#五、Math" class="headerlink" title="五、Math"></a>五、Math</h3><p><code>Math</code> 对象提供了众多方法用来进行数学计算，下面我们介绍常用的方法，更多方法使用请查看 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">MDN官网</a>了解。</p>
+<h4 id="取极限值"><a href="#取极限值" class="headerlink" title="取极限值"></a>取极限值</h4><p>使用 <code>min</code> 与 <code>max</code> 可以取得最小与最大值。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.min(1, 2, 3));</span><br><span class="line"></span><br><span class="line">console.log(Math.max(1, 2, 3));</span><br></pre></td></tr></table></figure>
+
+<p>—从数组中取值</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1, 2, 3];</span><br><span class="line">console.log(Math.max.apply(Math, arr));		</span><br><span class="line">console.log(Math.max(...arr));						</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="舍入处理"><a href="#舍入处理" class="headerlink" title="舍入处理"></a>舍入处理</h4><p><code>Math.ceil(num)</code>向上取整</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.ceil(1.111)); //2</span><br></pre></td></tr></table></figure>
+
+<p><code>Math.floor(num)</code>向下取整</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.floor(1.555)); //1</span><br></pre></td></tr></table></figure>
+
+<p><code>Math.round(num)</code>四舍五入处理</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.round(1.5)); //2</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="random"><a href="#random" class="headerlink" title="random"></a>random</h4><p><code>random</code> 方法用于返回<code>[0,1)</code>的随机数。</p>
+<p>返回<code>[0,n)</code>的随机数 公式为：Math.floor(Math.random()*n)</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const number = Math.floor(Math.random() * 5);</span><br><span class="line">console.log(number);</span><br></pre></td></tr></table></figure>
+
+<p>返回<code>[0,n]</code>的随机数 公式为：Math.floor(Math.random()*(n+1))</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const number = Math.floor(Math.random() * (5+1));</span><br><span class="line">console.log(number);</span><br></pre></td></tr></table></figure>
+
+<p>下面取<code>[2,5)</code>的随机数 公式为：min+Math.floor(Math.random()*(Max-min))</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const number = Math.floor(Math.random() * (5 - 2)) + 2;</span><br><span class="line">console.log(number);</span><br></pre></td></tr></table></figure>
+
+<p>下面取<code>[2,5]</code>的随机数 公式为：min+Math.floor(Math.random()*(Max-min+1))</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const number = Math.floor(Math.random() * (5 - 2 + 1)) + 2;</span><br><span class="line">console.log(number);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="取绝对值"><a href="#取绝对值" class="headerlink" title="取绝对值"></a>取绝对值</h4><p><code>Math.abs(num)</code>：取num的绝对值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.abs(-999));&#x2F;&#x2F;999</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="次幂运算"><a href="#次幂运算" class="headerlink" title="次幂运算"></a>次幂运算</h4><p><code>Math.pow(x,y)</code>：返回 x 的 y 次幂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(Math.pow(10, -2)); &#x2F;&#x2F;0.01</span><br><span class="line">console.log(Math.pow(1, -2)); &#x2F;&#x2F;1</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="六、Date"><a href="#六、Date" class="headerlink" title="六、Date"></a>六、Date</h3><p>  网站中处理日期时间是很常用的功能，通过 <code>Date</code> 类型提供的丰富功能可以非常方便的操作。</p>
+<h4 id="声明日期"><a href="#声明日期" class="headerlink" title="声明日期"></a>声明日期</h4><p>获取当前日期时间</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let now = new Date();</span><br><span class="line">console.log(now);</span><br><span class="line">console.log(typeof date); //object （由构造函数实例化为Object）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//直接使用函数获取当前时间</span><br><span class="line">console.log(Date());</span><br><span class="line">console.log(typeof Date()); //string （直接使用Date()方法）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>根据指定的日期与时间定义日期对象</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let now = new Date(&#x27;2028-02-22 03:25:02&#x27;);</span><br><span class="line">console.log(now);</span><br><span class="line"></span><br><span class="line">now = new Date(2028, 4, 5, 1, 22, 16);</span><br><span class="line">console.log(now);</span><br></pre></td></tr></table></figure>
+
+<p>使用展示运算符处理更方便</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let info = [2021, 3, 14, 10, 51, 19];</span><br><span class="line">let date = new Date(...info);</span><br><span class="line">console.dir(date);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h4><p>  js内的时间戳指的是<code>当前时间</code>到<code>1970年1月1日00:00:00</code>之间的<code>毫秒数</code>。</p>
+<p>获取时间戳</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*	获取指定时间对象的时间戳，可通过内置方法来获取。</span><br><span class="line">*&#x2F;</span><br><span class="line">let as &#x3D; new Date(2021,3,14,11,06,23);</span><br><span class="line">console.log(as); &#x2F;&#x2F;w3c标准时间</span><br><span class="line">console.log(as.getTime()); &#x2F;&#x2F;getTime()获取as的时间戳</span><br><span class="line">console.log(as.valueOf()); &#x2F;&#x2F;valueOf()获取as的时间戳</span><br><span class="line">console.log(as*1);	&#x2F;&#x2F;转为数字即时间戳</span><br><span class="line"></span><br><span class="line">&#x2F;*	获取当前时间戳</span><br><span class="line">*&#x2F;</span><br><span class="line">console.log(Date.now()); </span><br><span class="line">console.log(new Date().getTime());</span><br><span class="line">console.log(new Date().valueOf());</span><br><span class="line">console.log(new Date()*1);	&#x2F;&#x2F;转为数字即时间戳</span><br></pre></td></tr></table></figure>
+
+<p>计算脚本执行时间<code>Date.now()</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const start = Date.now();</span><br><span class="line">for (let i = 0; i &lt; 2000000; i++) &#123;&#125;</span><br><span class="line">const end = Date.now();</span><br><span class="line">console.log(end - start);</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以使用控制台测试<code>console.time(&quot;name&quot;) &amp;&amp; console.timeEnd(&quot;name&quot;)</code></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.time(&quot;testFor&quot;);</span><br><span class="line">for (let i = 0; i &lt; 20000000; i++) &#123;&#125;</span><br><span class="line">console.timeEnd(&quot;testFor&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="类型转换-1"><a href="#类型转换-1" class="headerlink" title="类型转换"></a>类型转换</h4><p><strong>w3c-&gt;时间戳</strong></p>
+<ul>
+<li>内置方法获取<code>getTime()\valueOf()</code></li>
+<li>将日期<code>转为数值类型</code>就是转为时间戳，单位是毫秒。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let as = new Date(&quot;2020-2-22 10:33:12&quot;);</span><br><span class="line">console.log(as * 1);</span><br><span class="line"></span><br><span class="line">console.log(Number(as));</span><br><span class="line"></span><br><span class="line">console.log(as.valueOf())</span><br><span class="line"></span><br><span class="line">console.log(date.getTime());</span><br></pre></td></tr></table></figure>
+
+<p><strong>时间戳-&gt;w3c</strong></p>
+<ul>
+<li><code>实例化Date</code>，并将时间戳作为参数传入。</li>
+</ul>
+<p>有时后台提供的日期为时间戳格式，下面是将时间戳转换为标准日期的方法</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const date = new Date().getTime();</span><br><span class="line">console.log(date);</span><br><span class="line">console.log(new Date(date));</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4 id="封装时间函数"><a href="#封装时间函数" class="headerlink" title="封装时间函数"></a>封装时间函数</h4><p>封装函数用于复用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function getCurrentTime(date = new Date(),modle = &quot;YYYY/MM/DD/HH/mm/ss&quot;) &#123;</span><br><span class="line">		let newDate = &#123;</span><br><span class="line">					YYYY: date.getFullYear(),</span><br><span class="line">					MM: date.getMonth() + 1,</span><br><span class="line">					DD: date.getDate(),</span><br><span class="line">					HH: date.getHours(),</span><br><span class="line">					mm: date.getMinutes(),</span><br><span class="line">					ss: date.getSeconds(),</span><br><span class="line">		&#125;;</span><br><span class="line">		for (let key in newDate) &#123;</span><br><span class="line">			modle = modle.replace(key, newDate[key]);</span><br><span class="line">		&#125;</span><br><span class="line">		return modle;</span><br><span class="line">&#125;</span><br><span class="line">console.log(getCurrentTime());</span><br><span class="line">console.log(getCurrentTime(new Date(), &quot;YYYY-MM-DD&quot;));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面是系统提供的日期时间方法，更多方法请查看 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date">MDN官网</a></p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Date()</td>
+<td align="left">返回当日的日期和时间。</td>
+</tr>
+<tr>
+<td align="left">getDate()</td>
+<td align="left">从 Date 对象返回<code>一个月中</code>的某一天 (1 ~ 31)。</td>
+</tr>
+<tr>
+<td align="left">getDay()</td>
+<td align="left">从 Date 对象返回<code>一周中</code>的某一天 (0 ~ 6)。</td>
+</tr>
+<tr>
+<td align="left">getMonth()</td>
+<td align="left">从 Date 对象返回月份 (<code>0 ~ 11</code>)。</td>
+</tr>
+<tr>
+<td align="left">getFullYear()</td>
+<td align="left">从 Date 对象以四位数字返回年份。</td>
+</tr>
+<tr>
+<td align="left">getHours()</td>
+<td align="left">返回 Date 对象的小时 (0 ~ 23)。</td>
+</tr>
+<tr>
+<td align="left">getMinutes()</td>
+<td align="left">返回 Date 对象的分钟 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">getSeconds()</td>
+<td align="left">返回 Date 对象的秒数 (0 ~ 59)。</td>
+</tr>
+<tr>
+<td align="left">parse()</td>
+<td align="left">返回1970年1月1日午夜到指定日期（字符串）的毫秒数。</td>
+</tr>
+<tr>
+<td align="left">getTime()</td>
+<td align="left">返回 时间戳</td>
+</tr>
+<tr>
+<td align="left">valueOf()</td>
+<td align="left">返回 Date 对象的原始值。（时间戳）</td>
+</tr>
+<tr>
+<td align="left">toString()</td>
+<td align="left">把 Date 对象转换为字符串</td>
+</tr>
+</tbody></table>
+<h4 id="moment-js"><a href="#moment-js" class="headerlink" title="moment.js"></a>moment.js</h4><p>Moment.js是一个轻量级的JavaScript时间库，它方便了日常开发中对时间的操作，提高了开发效率。</p>
+<p>更多使用方法请访问中文官网 <a target="_blank" rel="noopener" href="http://momentjs.cn/">http://momentjs.cn</a>或 英文官网 <a target="_blank" rel="noopener" href="https://momentjs.com/">https://momentjs.com</a></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/moment.js/2.24.0/moment.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>获取当前时间</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(moment().format(&quot;YYYY-MM-DD HH:mm:ss&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>设置时间</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(moment(&quot;2020-02-18 09:22:15&quot;).format(&quot;YYYY-MM-DD HH:mm:ss&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>十天后的日期</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(moment().add(10, &quot;days&quot;).format(&quot;YYYY-MM-DD hh:mm:ss&quot;));</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="prev" title="基础知识">
+      <i class="fa fa-chevron-left"></i> 基础知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" rel="next" title="数组类型">
+      数组类型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81-%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%B5%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一、 类型检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-typeof"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 typeof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-instanceof"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 instanceof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 值类型与对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81String"><span class="nav-number">1.2.</span> <span class="nav-text">二、String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%A3%B0%E6%98%8E%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 声明定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 转义符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 连接运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 模板字面量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E6%A0%87%E7%AD%BE%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 标签模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-String%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 String属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-String%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 String方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-1-%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">2.7.1 大小写转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-2-%E7%A7%BB%E9%99%A4%E7%A9%BA%E7%99%BD"><span class="nav-number">1.2.7.2.</span> <span class="nav-text">2.7.2 移除空白</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-3-%E8%8E%B7%E5%8F%96%E5%8D%95%E5%AD%97%E7%AC%A6"><span class="nav-number">1.2.7.3.</span> <span class="nav-text">2.7.3 获取单字符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-4-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.2.7.4.</span> <span class="nav-text">2.7.4 截取字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#slice-n1-n2"><span class="nav-number">1.2.7.4.1.</span> <span class="nav-text">slice(n1,n2)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#substr-n1-n2"><span class="nav-number">1.2.7.4.2.</span> <span class="nav-text">substr(n1,n2)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#substring-n1-n2"><span class="nav-number">1.2.7.4.3.</span> <span class="nav-text">substring(n1,n2)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-5-%E6%A3%80%E7%B4%A2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.2.7.5.</span> <span class="nav-text">2.7.5 检索字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-6-%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.2.7.6.</span> <span class="nav-text">2.7.6 替换字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-7-%E9%87%8D%E5%A4%8D%E7%94%9F%E6%88%90"><span class="nav-number">1.2.7.7.</span> <span class="nav-text">2.7.7 重复生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-8-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.7.8.</span> <span class="nav-text">2.7.8 类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#String-gt-Array"><span class="nav-number">1.2.7.8.1.</span> <span class="nav-text">String-&gt;Array</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Number-gt-String"><span class="nav-number">1.2.7.8.2.</span> <span class="nav-text">Number-&gt;String</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Array-gt-String"><span class="nav-number">1.2.7.8.3.</span> <span class="nav-text">Array-&gt;String</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Boolean"><span class="nav-number">1.3.</span> <span class="nav-text">三、Boolean</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.1.</span> <span class="nav-text">隐式转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.2.</span> <span class="nav-text">显式转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">实例操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Number"><span class="nav-number">1.4.</span> <span class="nav-text">四、Number</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">声明定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">基本函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN"><span class="nav-number">1.4.3.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.4.4.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E7%B2%BE%E5%BA%A6"><span class="nav-number">1.4.5.</span> <span class="nav-text">浮点精度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81Math"><span class="nav-number">1.5.</span> <span class="nav-text">五、Math</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%9E%81%E9%99%90%E5%80%BC"><span class="nav-number">1.5.1.</span> <span class="nav-text">取极限值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%88%8D%E5%85%A5%E5%A4%84%E7%90%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">舍入处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#random"><span class="nav-number">1.5.3.</span> <span class="nav-text">random</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="nav-number">1.5.4.</span> <span class="nav-text">取绝对值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A1%E5%B9%82%E8%BF%90%E7%AE%97"><span class="nav-number">1.5.5.</span> <span class="nav-text">次幂运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81Date"><span class="nav-number">1.6.</span> <span class="nav-text">六、Date</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E6%97%A5%E6%9C%9F"><span class="nav-number">1.6.1.</span> <span class="nav-text">声明日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">1.6.2.</span> <span class="nav-text">时间戳</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2-1"><span class="nav-number">1.6.3.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.4.</span> <span class="nav-text">封装时间函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moment-js"><span class="nav-number">1.6.5.</span> <span class="nav-text">moment.js</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿顺特烦恼"
+      src="/images/headPortrait.jpg">
+  <p class="site-author-name" itemprop="name">阿顺特烦恼</p>
+  <div class="site-description" itemprop="description">阿顺特烦恼,希望大家没有烦恼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/astfn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;astfn" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/ashuntefannao" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;ashuntefannao" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-adn"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿顺特烦恼</span>
+</div>
+  <div class="powered-by">
+     <!-- 外部引入 访客计数器-->
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span><br/>
+      
+      <strong style="color:#ccc">ASHUNTEFANNAO</strong><br/>
+      <span style="color:#ccc;font-size:13px">博客文章版权归作者 阿顺特烦恼 所有</span><br/>
+      <span style="color:#ccc;font-size:13px">欢迎转载 但未经作者同意 必须保留此段声明</span><br/>
+  </div>
+  
+  <!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  -->
+
+
+
+<!-- 外部脚本 -->
+
+<!--以下部分脚本依赖jquery-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--浏览器搞笑标题 //实测会影响图标-->
+	<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/hititle.js"></script>-->
+
+	<!-- 🌸飘落 -->
+		<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/sakura.js"></script>-->
+
+	<!-- 雪花飘落 -->
+	  <!-- <script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js"></script> -->
+
+	<!-- // 文字 -->
+    <!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>-->
+
+<!-- // 烟花 -->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script async type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js"></script>
+
+<!-- // 星星跟随坠落 -->
+	<script async src="https://cdn.jsdelivr.net/gh/cungudafa/cdn@2.1.2/js/cursor.js"></script>
+
+<!-- // 连线 -->
+	<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!-- 样式二（飘动的彩带） -->
+	<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/piao.js" type="text/javascript"></script>
+
+<!--背景切换-->
+  <!--<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

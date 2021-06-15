@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/Ashun.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/Ashun.ico">
+  <link rel="mask-icon" href="/images/favicons/Ashun.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#34495e","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基操​    如果说CSS3的灵魂在于美妙的动画，那在实现炫酷动画过程中，就一定少不了transform变形，在transform中我们可以设置移动、旋转、缩放等效果，同时transform也为我们提供了一些族属性，来应对不同的场景，只要你敢想就能设计出不同的动效。 transformtransform的属性如下： translate：   translate相关 含义    translate(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="transform变形">
+<meta property="og:url" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/index.html">
+<meta property="og:site_name" content="AshunBlog">
+<meta property="og:description" content="基操​    如果说CSS3的灵魂在于美妙的动画，那在实现炫酷动画过程中，就一定少不了transform变形，在transform中我们可以设置移动、旋转、缩放等效果，同时transform也为我们提供了一些族属性，来应对不同的场景，只要你敢想就能设计出不同的动效。 transformtransform的属性如下： translate：   translate相关 含义    translate(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/backface-visibility1.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/backface-visibility2.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/translate表单.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/3D对比-未设置.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/3D对比-设置.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/3D效果1.gif">
+<meta property="og:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/3D效果2.gif">
+<meta property="article:published_time" content="2021-05-08T06:53:50.000Z">
+<meta property="article:modified_time" content="2021-06-15T04:32:59.352Z">
+<meta property="article:author" content="阿顺特烦恼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/transform变形.assets/backface-visibility1.gif">
+
+<link rel="canonical" href="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>transform变形 | AshunBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">AshunBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">好好学习,天天Code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/astfn" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/08/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transform%E5%8F%98%E5%BD%A2/transform%E5%8F%98%E5%BD%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/headPortrait.jpg">
+      <meta itemprop="name" content="阿顺特烦恼">
+      <meta itemprop="description" content="阿顺特烦恼,希望大家没有烦恼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AshunBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          transform变形
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-08 14:53:50" itemprop="dateCreated datePublished" datetime="2021-05-08T14:53:50+08:00">2021-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-15 12:32:59" itemprop="dateModified" datetime="2021-06-15T12:32:59+08:00">2021-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">Web前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web%E5%89%8D%E7%AB%AF/CSS/transform%E5%8F%98%E5%BD%A2/" itemprop="url" rel="index"><span itemprop="name">transform变形</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基操"><a href="#基操" class="headerlink" title="基操"></a>基操</h2><p>​    如果说CSS3的灵魂在于美妙的动画，那在实现炫酷动画过程中，就一定少不了<code>transform</code>变形，在<code>transform</code>中我们可以设置移动、旋转、缩放等效果，同时transform也为我们提供了一些族属性，来应对不同的场景，只要你敢想就能设计出不同的动效。</p>
+<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>transform的属性如下：</p>
+<h4 id="translate："><a href="#translate：" class="headerlink" title="translate："></a>translate：</h4><table>
+<thead>
+<tr>
+<th>translate相关</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>translate(x,y)</td>
+<td>可同时设置沿(x,y)轴的移动长度</td>
+</tr>
+<tr>
+<td>translateX(x)</td>
+<td>只设置x轴移动长度</td>
+</tr>
+<tr>
+<td>translateY(y)</td>
+<td>只设置y轴移动长度</td>
+</tr>
+<tr>
+<td>translateZ(z)</td>
+<td>只设置z轴移动长度，只有在3D场景下，该属性才能体现</td>
+</tr>
+<tr>
+<td>translate3d(<em>x</em>,<em>y</em>,<em>z</em>)</td>
+<td>可分别设置沿(x,y,z)轴的移动长度</td>
+</tr>
+</tbody></table>
+<h4 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h4><table>
+<thead>
+<tr>
+<th>rotate相关</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rotate(<code>n</code>deg)</td>
+<td>与rotateZ相同。</td>
+</tr>
+<tr>
+<td>rotateX(<code>n</code>deg)</td>
+<td>只设置x轴旋转角度，在3d场景尤为明显</td>
+</tr>
+<tr>
+<td>rotateY(<code>n</code>deg)</td>
+<td>只设置y轴旋转角度，在3d场景尤为明显</td>
+</tr>
+<tr>
+<td>rotateZ(<code>n</code>deg)</td>
+<td>只设置z轴旋转角度</td>
+</tr>
+<tr>
+<td>rotate3d(<em>x</em>,<em>y</em>,<em>z</em>，<code>n</code>deg)</td>
+<td>可分别设置沿(x,y,z)轴的旋转角度，前三个参数值为<code>0</code>或<code>1</code>,意为是否设置某个轴的旋转。</td>
+</tr>
+</tbody></table>
+<h4 id="scale"><a href="#scale" class="headerlink" title="scale"></a>scale</h4><table>
+<thead>
+<tr>
+<th>scale相关</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>scale(<em>x</em>,<em>y</em>)</td>
+<td>分别定义(<em>x</em>,<em>y</em>)轴的缩放比例，值为<code>0~n</code>，若只传入一个值，则(<em>x</em>,<em>y</em>)轴都应用这个值。</td>
+</tr>
+<tr>
+<td>scaleX(<em>x</em>)</td>
+<td>只设置x轴缩放。</td>
+</tr>
+<tr>
+<td>scaleY(<em>y</em>)</td>
+<td>只设置y轴缩放。</td>
+</tr>
+<tr>
+<td>scaleZ(<em>z</em>)</td>
+<td>只设置z轴缩放</td>
+</tr>
+<tr>
+<td>scale3d(<em>x</em>,<em>y</em>,<em>z</em>)</td>
+<td>可分别设置沿(x,y,z)轴的缩放倍数。</td>
+</tr>
+</tbody></table>
+<h4 id="skew"><a href="#skew" class="headerlink" title="skew"></a>skew</h4><table>
+<thead>
+<tr>
+<th>scale相关</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>skew(<em>x</em>,<em>y</em>)</td>
+<td>分别定义(<em>x</em>,<em>y</em>)轴的倾斜角度，单位<code>deg</code>,若只传入一个值，则(<em>x</em>,<em>y</em>)轴都应用这个值。</td>
+</tr>
+<tr>
+<td>skewX(<em>x</em>)</td>
+<td>只设置x轴倾斜角度。</td>
+</tr>
+<tr>
+<td>skewY(<em>y</em>)</td>
+<td>只设置y轴倾斜角度。</td>
+</tr>
+</tbody></table>
+<h4 id="perspective"><a href="#perspective" class="headerlink" title="perspective"></a>perspective</h4><p>​    <code>transform: perspective(arg)</code>,参数单位为<code>px</code>，规定3D场景的<strong>视角距离</strong>，该属性可设置在3D盒子本身，也可设置在父级元素，都能成功显示视口距离效果。</p>
+<p>​    还有一个全局属性<code>perspective: arg</code>,用法与<code>transform: perspective(arg)</code>相同，不过值得注意的是：这个全局属性必须设置在想要展示3D效果盒子的<strong>父级</strong>元素上，才能正常显示视角距离效果。</p>
+<hr>
+<h3 id="族属性"><a href="#族属性" class="headerlink" title="族属性"></a>族属性</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>transform-origin</td>
+<td>设置transform变换的基点</td>
+</tr>
+<tr>
+<td>transform-style</td>
+<td>规定被嵌套元素如何在 3D 空间中显示。</td>
+</tr>
+</tbody></table>
+<h3 id="其它相关"><a href="#其它相关" class="headerlink" title="其它相关"></a>其它相关</h3><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>perspective</td>
+<td>设置3D场景的视角距离</td>
+</tr>
+<tr>
+<td>perspective-origin</td>
+<td>设置3D场景的视角基点</td>
+</tr>
+<tr>
+<td>backface-visibility</td>
+<td>设置元素背面是否可见，可设置<code>visible</code>、<code>hidden</code>。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>perspective，要注意其与<code>transform: perspective(arg)</code>的区别，其只能设置在3d盒子的父级元素上</p>
+</li>
+<li><p>backface-visibility<br>这个属性在做旋转卡片时很重要，因为旋转卡片要展示两面，默认情况下正面卡片在旋转后，其背面也会透视显示，从而影响背面卡片的显示，所以要设置两张卡片背面不可见。</p>
+<p>示例：</p>
+<p>未设置：</p>
+<img src="transform变形.assets/backface-visibility1.gif" alt="backface-visibility1" style="zoom:50%;" />
+
+<p>设置后：</p>
+<img src="transform变形.assets/backface-visibility2.gif" alt="backface-visibility2" style="zoom:50%;" /></li>
+</ul>
+<hr>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>了解了变形的基本操作，就可以利用这些属性随意发挥想象力了，下面示例将会运用transform实现。</p>
+<p>一、表单效果</p>
+<img src="transform变形.assets/translate表单.gif" alt="translate表单" style="zoom:75%;" />
+
+<p>值得注意的是：<code>input[type=&quot;text&quot;]</code>不能添加伪类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  main &#123;</span><br><span class="line">    width: 80%;</span><br><span class="line">  &#125;</span><br><span class="line">  form &#123;</span><br><span class="line">    width: inherit;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-direction: column;</span><br><span class="line">    justify-content: space-around;</span><br><span class="line">    align-items: center;</span><br><span class="line">    background: #2c3e50;</span><br><span class="line">  &#125;</span><br><span class="line">  span &#123;</span><br><span class="line">    width: 60px;</span><br><span class="line">    display: inline-flex;</span><br><span class="line">    justify-content: space-around;</span><br><span class="line">    align-items: center;</span><br><span class="line">    letter-spacing: 2px;</span><br><span class="line">    color: white;</span><br><span class="line">  &#125;</span><br><span class="line">  label &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    min-height: 50px;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">  &#125;</span><br><span class="line">  .inputBox &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    position: relative;</span><br><span class="line">    width: 150px;</span><br><span class="line">    min-height: 30px;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    margin-left: 8px;</span><br><span class="line">    background: white;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    transition: 0.8s;</span><br><span class="line">  &#125;</span><br><span class="line">  input &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    min-height: 30px;</span><br><span class="line">  &#125;</span><br><span class="line">  .after &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    bottom: 0px;</span><br><span class="line">    left: 0px;</span><br><span class="line">    width: 100%;</span><br><span class="line">    height: 2.1px;</span><br><span class="line">    border-radius: 2px;</span><br><span class="line">    background: linear-gradient(</span><br><span class="line">      to right,</span><br><span class="line">      white,</span><br><span class="line">      #e74c3c,</span><br><span class="line">      #e67e22,</span><br><span class="line">      #f1c40f,</span><br><span class="line">      #bdc3c7,</span><br><span class="line">      #1abc9c,</span><br><span class="line">      #3498db,</span><br><span class="line">      #9b59b6,</span><br><span class="line">      white</span><br><span class="line">    );</span><br><span class="line">    transform: translateX(-100%);</span><br><span class="line">    transition: 0.8s;</span><br><span class="line">  &#125;</span><br><span class="line">  .inputBox:hover &#123;</span><br><span class="line">    transform: scale(1.1);</span><br><span class="line">  &#125;</span><br><span class="line">  .inputBox:hover .after &#123;</span><br><span class="line">    transform: translateX(0);</span><br><span class="line">  &#125;</span><br><span class="line">  button &#123;</span><br><span class="line">    width: 60px;</span><br><span class="line">    height: 40px;</span><br><span class="line">    margin: 10px;</span><br><span class="line">    color: white;</span><br><span class="line">    background: transparent;</span><br><span class="line">    border: 2px solid white;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    position: relative;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    transition: 0.8s;</span><br><span class="line">  &#125;</span><br><span class="line">  button &gt; span &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    z-index: 1;</span><br><span class="line">    background: transparent;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">  &#125;</span><br><span class="line">  button::after &#123;</span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    width: 98%;</span><br><span class="line">    height: inherit;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    background: transparent;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">    transition: 0.8s;</span><br><span class="line">  &#125;</span><br><span class="line">  button:hover &#123;</span><br><span class="line">    transform: scale(1.1);</span><br><span class="line">  &#125;</span><br><span class="line">  button:hover:after &#123;</span><br><span class="line">    transform: skewX(45deg) translate(-10px, -50%);</span><br><span class="line">    background: #e74c3c;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;form action&#x3D;&quot;#&quot;&gt;</span><br><span class="line">      &lt;label&gt;</span><br><span class="line">        &lt;span&gt;用户名:&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;inputBox&quot;&gt;</span><br><span class="line">          &lt;input type&#x3D;&quot;text&quot; &#x2F;&gt;</span><br><span class="line">          &lt;div class&#x3D;&quot;after&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;label&gt;</span><br><span class="line">      &lt;label&gt;</span><br><span class="line">        &lt;span&gt;密码:&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;inputBox&quot;&gt;</span><br><span class="line">          &lt;input type&#x3D;&quot;text&quot; &#x2F;&gt;</span><br><span class="line">          &lt;div class&#x3D;&quot;after&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;label&gt;</span><br><span class="line">      &lt;button&gt;&lt;span&gt;Login&lt;&#x2F;span&gt;&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;form&gt;</span><br><span class="line">  &lt;&#x2F;main&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="3D"><a href="#3D" class="headerlink" title="3D"></a>3D</h2><p>对于3D效果，我们就需要进行一些预设，只有配置了这些预设，才能够有视觉效果。</p>
+<h3 id="transform-style"><a href="#transform-style" class="headerlink" title="transform-style"></a>transform-style</h3><p><code>transform-style</code>: 规定被嵌套元素如何在 3D 空间中显示。</p>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flat</td>
+<td>子元素将不保留其 3D 位置。</td>
+</tr>
+<tr>
+<td>preserve-3d</td>
+<td>子元素将保留其 3D 位置。</td>
+</tr>
+</tbody></table>
+<p>当我们设置<code>transform-style: preserve-3d</code>时，后期改变元素位置，才会有视口距离效果。</p>
+<p>当然，我们还要配置视口距离👇。</p>
+<h3 id="perspective-1"><a href="#perspective-1" class="headerlink" title="perspective"></a>perspective</h3><p>我们可以使用两种方式定义视口距离，单位都为<code>px</code>：</p>
+<ol>
+<li><code>perspective: arg</code></li>
+<li><code>transform: perspective(arg)</code></li>
+</ol>
+<p>但值得注意的是二者的区别，上文已经说明，这里不再赘述，但在实际使用时，用哪个比较好呢？</p>
+<p>个人推荐使用<code>perspective</code>,不使用<code>transform: perspective(arg)</code>的原因如下:</p>
+<p>​    <strong>当触发选项很多时</strong>，为了保证具有视口效果，在触发时的样式表中还要重复配置<code>transform: perspective(arg)</code>。</p>
+<p>​    因为动画被触发时，应用的是触发时的样式表，若此时不配置<code>transform: perspective(arg)</code>,则会出现：动画触发前还有视口效果，触发后却没有了。</p>
+<p>​    而我们为了避免这种情况，只需要在其父级盒子上设置<code>perspective</code>即可，因为其不属于<code>transform</code>, 所以在后期触发时，不用考虑transform重新配置的问题。</p>
+<hr>
+<p>当我们做好了前期的预设，后面就可以顺利展示3d效果了：</p>
+<ul>
+<li><p>（<em>z</em>）轴相关特效得以体现</p>
+</li>
+<li><p>一些（<em>x</em>,<em>y</em>）轴的特效会更加明显</p>
+</li>
+</ul>
+<p>让我们来对比一下：</p>
+<p>一、未配置预设时的translateZ效果</p>
+<p>​    没错！没有效果，由于没有保留元素3d位置，所以Z轴效果不能够得到体现。</p>
+<img src="transform变形.assets/3D对比-未设置.gif" alt="3D对比-未设置.gif" style="zoom:50%;" />
+
+<p>二、配置预设后</p>
+<img src="transform变形.assets/3D对比-设置.gif" alt="3D对比-设置.gif" style="zoom:50%;" />
+
+<p>什么？效果不明显？让我们简单的旋转一下。</p>
+<img src="transform变形.assets/3D效果1.gif" alt="3D效果1.gif" style="zoom:50%;" />
+
+<p>​    </p>
+<h3 id="案例展示"><a href="#案例展示" class="headerlink" title="案例展示"></a>案例展示</h3><p>下面让我们展示一个案例，更好的熟悉3D动画</p>
+<img src="transform变形.assets/3D效果2.gif" alt="3D效果2.gif" style="zoom:55%;" />
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  * &#123;</span><br><span class="line">    margin: 0px;</span><br><span class="line">    padding: 0px;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">  &#125;</span><br><span class="line">  body &#123;</span><br><span class="line">    width: 100vw;</span><br><span class="line">    min-height: 100vh;</span><br><span class="line">    background-color: #7f8c8d;</span><br><span class="line">  &#125;</span><br><span class="line">  main &#123;</span><br><span class="line">    width: inherit;</span><br><span class="line">    height: 100vh;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-direction: column;</span><br><span class="line">    justify-content: space-around;</span><br><span class="line">    align-items: center;</span><br><span class="line">  &#125;</span><br><span class="line">  section &#123;</span><br><span class="line">    width: 400px;</span><br><span class="line">    height: 400px;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &#123;</span><br><span class="line">    width: inherit;</span><br><span class="line">    height: inherit;</span><br><span class="line">    border: 2px solid white;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    transform-style: preserve-3d;</span><br><span class="line">    transform: perspective(900px) rotate3d(0, 1, 0, 45deg);</span><br><span class="line">    transition-duration: 1s;</span><br><span class="line">    transition-delay: 1s;</span><br><span class="line">    position: relative;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &gt; div &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">    border-radius: 10px;</span><br><span class="line">    transition: 1s;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &gt; div:nth-of-type(1) &#123;</span><br><span class="line">    background: #badc58;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &gt; div:nth-of-type(2) &#123;</span><br><span class="line">    background: #ff7979;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &gt; div:nth-of-type(3) &#123;</span><br><span class="line">    background: #ffbe76;</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D &gt; div:nth-of-type(4) &#123;</span><br><span class="line">    background: #22a6b3;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .box3D:hover &#123;</span><br><span class="line">    transform: perspective(900px) rotate3d(0, 1, 1, 225deg);</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D:hover &gt; div:nth-of-type(1) &#123;</span><br><span class="line">    transform: translate3d(-50%, -50%, 100px);</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D:hover &gt; div:nth-of-type(2) &#123;</span><br><span class="line">    transform: translate3d(-50%, -50%, -200px);</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D:hover &gt; div:nth-of-type(3) &#123;</span><br><span class="line">    transform: translate3d(-50%, -50%, -100px);</span><br><span class="line">  &#125;</span><br><span class="line">  .box3D:hover &gt; div:nth-of-type(4) &#123;</span><br><span class="line">    transform: translate3d(-50%, -50%, 200px);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;main&gt;</span><br><span class="line">    &lt;section&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;box3D&quot;&gt;</span><br><span class="line">        &lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;section&gt;</span><br><span class="line">  &lt;&#x2F;main&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>当然，我更推荐使用<code>perspective</code>来在3d盒子的<code>父级元素</code>中设置视口。</p>
+</li>
+<li><p>虽然该案例对于3d盒子(<code>.box3D</code>)来说，只有一个<code>hover</code>进行触发，但如果我希望click、表单提交时，等等场景下都触发该动画，无论在CSS还是在JS中，都需要重复配置<code>transform：perspective(900px)</code>。</p>
+</li>
+</ul>
+<p>进行以下更改即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">section &#123;</span><br><span class="line">    width: 400px;</span><br><span class="line">    height: 400px;</span><br><span class="line">    perspective: 900px; &#x2F;&#x2F;在父级元素配置视口</span><br><span class="line">&#125;</span><br><span class="line">.box3D &#123;</span><br><span class="line">   ……</span><br><span class="line">   transform: rotate3d(0, 1, 0, 45deg);  &#x2F;&#x2F;去掉transform:perspective(900px)</span><br><span class="line">   ……</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后再出发时，就不用重复配置<code>transform: perspective(900px)</code>选项了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box3D:hover &#123;</span><br><span class="line">    transform: rotate3d(0, 1, 1, 225deg);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果和之前一样，还能减少代码冗余。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>原创文章，文笔有限，才疏学浅，文中若有不正之处，速速告知。</p>
+<p>本文到此结束，希望对你有所帮助，我是 Ashun ，在校大学生，立志成为资深前端工程师，欢迎大家一起交流、学习。后续更新更多文章，请持续关注哦~</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/07/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/CSS/transition%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/transition%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB/" rel="prev" title="transition过渡动画">
+      <i class="fa fa-chevron-left"></i> transition过渡动画
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Web%E5%89%8D%E7%AB%AF/%E4%B8%89%E5%89%91%E5%AE%A2/JavaScript/JavaScript%E5%A4%A7%E6%80%BB%E7%BB%93/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="基础知识">
+      基础知识 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%93%8D"><span class="nav-number">1.</span> <span class="nav-text">基操</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">1.1.</span> <span class="nav-text">transform</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#translate%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">translate：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rotate"><span class="nav-number">1.1.2.</span> <span class="nav-text">rotate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scale"><span class="nav-number">1.1.3.</span> <span class="nav-text">scale</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skew"><span class="nav-number">1.1.4.</span> <span class="nav-text">skew</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#perspective"><span class="nav-number">1.1.5.</span> <span class="nav-text">perspective</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%8F%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">族属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.</span> <span class="nav-text">其它相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D"><span class="nav-number">2.</span> <span class="nav-text">3D</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transform-style"><span class="nav-number">2.1.</span> <span class="nav-text">transform-style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective-1"><span class="nav-number">2.2.</span> <span class="nav-text">perspective</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E5%B1%95%E7%A4%BA"><span class="nav-number">2.3.</span> <span class="nav-text">案例展示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿顺特烦恼"
+      src="/images/headPortrait.jpg">
+  <p class="site-author-name" itemprop="name">阿顺特烦恼</p>
+  <div class="site-description" itemprop="description">阿顺特烦恼,希望大家没有烦恼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/astfn" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;astfn" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/ashuntefannao" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;ashuntefannao" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Gitee</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fab fa-adn"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿顺特烦恼</span>
+</div>
+  <div class="powered-by">
+     <!-- 外部引入 访客计数器-->
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span id="busuanzi_container_site_pv">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span><br/>
+      
+      <strong style="color:#ccc">ASHUNTEFANNAO</strong><br/>
+      <span style="color:#ccc;font-size:13px">博客文章版权归作者 阿顺特烦恼 所有</span><br/>
+      <span style="color:#ccc;font-size:13px">欢迎转载 但未经作者同意 必须保留此段声明</span><br/>
+  </div>
+  
+  <!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  -->
+
+
+
+<!-- 外部脚本 -->
+
+<!--以下部分脚本依赖jquery-->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--浏览器搞笑标题 //实测会影响图标-->
+	<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/hititle.js"></script>-->
+
+	<!-- 🌸飘落 -->
+		<!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/sakura.js"></script>-->
+
+	<!-- 雪花飘落 -->
+	  <!-- <script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js"></script> -->
+
+	<!-- // 文字 -->
+    <!--<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/shehuizhuyi.js"></script>-->
+
+<!-- // 烟花 -->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script async type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script async src="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js"></script>
+
+<!-- // 星星跟随坠落 -->
+	<script async src="https://cdn.jsdelivr.net/gh/cungudafa/cdn@2.1.2/js/cursor.js"></script>
+
+<!-- // 连线 -->
+	<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+
+<!-- 样式二（飘动的彩带） -->
+	<script async src="https://cdn.jsdelivr.net/gh/wallleap/cdn@latest/js/piao.js" type="text/javascript"></script>
+
+<!--背景切换-->
+  <!--<script async src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>-->
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
