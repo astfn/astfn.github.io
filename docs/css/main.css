@@ -1319,7 +1319,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d4eba3;
+  background: #c1ffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2810,4 +2810,52 @@ ul.breadcrumb li + li:last-child {
   .pagination {
     margin: 8px 0 0;
   }
+}
+body {
+  background: #fff url("myAssets/bg.svg") center center/cover;
+}
+div.site-state-item {
+  transition: 0.3s;
+}
+div.site-state-item:hover {
+  transform: scale(1.05);
+}
+div.header-inner {
+  margin-top: 8px;
+  border-radius: 10px;
+}
+div.sidebar-inner.affix-top {
+  border-radius: 10px;
+}
+div.content-wrap {
+  margin-top: 5px;
+}
+article.post-block {
+  border-radius: 8px;
+}
+nav.pagination {
+  border-radius: 6px;
+}
+.page-number,
+a.extend.next {
+  border-radius: 8px;
+  box-shadow: 0px 0px 3px #aaa;
+}
+blockquote {
+  border-left: 4px solid #3eaf7c;
+  background: rgba(62,175,124,0.1);
+}
+code {
+  color: #ff502c;
+  background-color: #fff5f5;
+}
+div.back-to-top.back-to-top-on {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  bottom: 70px;
+  right: 10px;
 }
